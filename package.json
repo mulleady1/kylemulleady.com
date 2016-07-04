@@ -4,7 +4,7 @@
   "description": "",
   "main": " ",
   "scripts": {
-    "test": "./node_modules/.bin/mocha $(find src -name '*.spec.js')"
+    "test": "./node_modules/.bin/mocha 'src/**/*.spec.js'"
   },
   "author": "",
   "license": "ISC",
