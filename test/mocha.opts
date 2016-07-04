@@ -1,0 +1,2 @@
+--require test/init.js
+--compilers css:test/css-compiler.js,js:babel-register 
