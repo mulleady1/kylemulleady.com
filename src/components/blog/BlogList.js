@@ -1,18 +1,35 @@
 import React from 'react';
+import request from 'superagent';
+import BlogDetail from './BlogDetail';
 import NavLink from '../shared/NavLink';
 import styles from './BlogList.scss';
 
-export default class BlogList extends React.Component {
+export default class Blog extends React.Component {
 	
+	constructor(props) {
+    super(props);
+		this.state = {
+			posts: []
+		};
+	}
+
+	componentDidMount() {
+		request
+			.get('/api/posts')
+			.end((err, res) => {
+				this.setState({ posts: res.body });
+			});
+	}
+
 	render() {
+		const { posts } = this.state;
+
 		return (
-			<ul>
-				{this.props.posts.map((post) => (
-					<li key={post.id}>
-						<NavLink to={`/blog/${post.id}`}>{post.title}</NavLink>
-					</li>
-				))}
-			</ul>
+			<div className={styles.wrapper}>
+				<ul>
+					{posts.map((post) => (<BlogDetail post={post} />))}
+				</ul>
+			</div>
 		);
 	}
 }
