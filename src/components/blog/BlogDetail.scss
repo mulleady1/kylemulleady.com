@@ -1,3 +1,11 @@
-.about {
-	padding: 20px;
+.detail {
+	border-bottom: 1px solid #e9e9e9;
+	.summary {
+		display: flex;
+		justify-content: space-between;
+		padding: 20px;
+	}
+	.content {
+		padding: 20px;
+	}
 }
