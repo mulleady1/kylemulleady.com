@@ -30,7 +30,7 @@ export default class BlogPage extends React.Component {
 
 		let children;
 		if (postId) {
-			const post = _.find(posts, { id: parseInt(postId, 10) } );
+			const post = _.find(posts, { id: parseInt(postId, 10) });
 			children = post ? (<BlogDetail post={post} />) : null;
 		} else {
 			children = (<BlogList posts={this.state.posts} />);
