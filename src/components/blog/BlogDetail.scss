@@ -1,11 +1,12 @@
-.detail {
-	border-bottom: 1px solid #e9e9e9;
-	.summary {
-		display: flex;
-		justify-content: space-between;
-		padding: 20px;
+.summary {
+	small {
+		color: #aaa;
+		font-size: 18px;
+		float: right;
+		margin-top: 9px;
 	}
-	.content {
-		padding: 20px;
-	}
+}
+.content {
+	font-size: 21px;
+	white-space: pre-wrap;
 }

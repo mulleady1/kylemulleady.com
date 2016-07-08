@@ -1,9 +1,17 @@
-.wrapper {
-	padding: 20px;
-	& > ul {
-		margin: 0 auto;
-		padding: 0;
-		list-style: none;
-		max-width: 800px;
+.list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	li a {
+		display: flex;
+		justify-content: space-between;
+		padding: 30px 15px;
+		border-bottom: 1px solid #ddd;
+		&:hover {
+			text-decoration: none;
+			.title {
+				text-decoration: underline;
+			}
+		}
 	}
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import {FORMAT} from '../../constants';
 import styles from './BlogDetail.scss';
 
 export default class BlogDetail extends React.Component {
@@ -13,13 +14,15 @@ export default class BlogDetail extends React.Component {
 
 		return (
 			<div>
-				<div className={styles.summary} onClick={() => this.setState({ isExpanded: !isExpanded }) }>
-					<span>{post.title}</span>
-					<span>{moment(post.created).format('MMM Do, YYYY') }</span>
+				<div className={styles.summary}>
+					<h1>
+						{post.title}
+						<small>{moment(post.created).format(FORMAT) }</small>
+					</h1>
 				</div>
-				<div className={styles.content}>
+				<p className={styles.content}>
 					{post.content}
-				</div>
+				</p>
 			</div>
 		);
 	}
