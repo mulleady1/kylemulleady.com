@@ -10,7 +10,9 @@ import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import BlogPage from './components/blog/BlogPage';
 
-axios.defaults.baseURL = 'http://localhost:5000';
+if (process.env.BASE_URL) {
+	axios.defaults.baseURL = process.env.BASE_URL;
+}
 
 ReactDOM.render((
 	<Provider store={store}>

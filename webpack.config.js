@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
+process.env.BASE_URL = 'http://localhost:5000';
+
 module.exports = {
 	devtool: 'eval',
 	entry: [
