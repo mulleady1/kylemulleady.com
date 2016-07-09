@@ -10,8 +10,8 @@ import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import BlogPage from './components/blog/BlogPage';
 
-if (process.env.BASE_URL) {
-	axios.defaults.baseURL = process.env.BASE_URL;
+if (window.location.port === '5001') {
+	axios.defaults.baseURL = 'http://localhost:5000';
 }
 
 ReactDOM.render((

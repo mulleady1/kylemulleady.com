@@ -9,10 +9,10 @@ body {
 	padding: 55px 0 0 0;
 	font-family: 'Lato', sans-serif;
 	background: #000;
-	color: #888;
+	color: #999;
 }
 a {
-	color: #888;
+	color: #999;
 	text-decoration: none;
 }
 a:not(.plain):hover {
