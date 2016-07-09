@@ -2,7 +2,7 @@ import React from 'react';
 import NavLink from '../shared/NavLink';
 import BlogList from './BlogList';
 import BlogDetail from './BlogDetail';
-import request from 'superagent';
+import axios from 'axios';
 import _ from 'lodash';
 import styles from './BlogPage.scss';
 import {addPropsToChildren} from '../../util/util';
@@ -17,10 +17,12 @@ export default class BlogPage extends React.Component {
 	}
 
 	componentDidMount() {
-		request
-			.get('/api/posts')
-			.end((err, res) => {
-				this.setState({ posts: res.body });
+		axios.get('/api/posts')
+			.then((res) => {
+				this.setState({ posts: res.data });
+			})
+			.catch((res) => {
+				alert('Error: ' + res.data);
 			});
 	}
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import {Provider} from 'react-redux';
 import { Router, Route, IndexRoute, Redirect, IndexRedirect } from 'react-router';
 import history from './history/history';
@@ -8,6 +9,8 @@ import App from './components/app/App';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import BlogPage from './components/blog/BlogPage';
+
+axios.defaults.baseURL = 'http://localhost:5000';
 
 ReactDOM.render((
 	<Provider store={store}>
