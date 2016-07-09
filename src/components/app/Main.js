@@ -6,7 +6,7 @@ export default class Main extends React.Component {
 	render() {
 		return (
 			<div className={styles.main}>
-				<section className={`${styles.narrow} ${styles.flex}`}>
+				<section className={styles.firstSection}>
 					<div>
 						<p>Software engineer.</p>
 						<p>Consultant.</p>
