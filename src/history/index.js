@@ -1,6 +1,6 @@
 import { useRouterHistory } from 'react-router';
 import { createHashHistory } from 'history';
-import store from '../store/store';
+import store from '../store';
 
 const history = useRouterHistory(createHashHistory)({ queryKey: false });
 

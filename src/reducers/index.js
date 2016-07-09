@@ -1,16 +1,17 @@
 import {combineReducers} from 'redux';
+import {SET_POSTS} from '../constants';
 
-function app(state={}, action) {
+function posts(state=[], action) {
 	switch (action.type) {
-		case 'TEST':
-			return {...state};
+		case SET_POSTS:
+			return action.posts;
 		default:
 			return state;
 	}
 }
 
 const reducers = combineReducers({
-	app
+	posts
 });
 
 export default reducers;

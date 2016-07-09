@@ -1,41 +1,29 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import NavLink from '../shared/NavLink';
 import BlogList from './BlogList';
 import BlogDetail from './BlogDetail';
-import axios from 'axios';
+import BlogActions from '../../actions/BlogActions';
 import _ from 'lodash';
 import styles from './BlogPage.scss';
 import {addPropsToChildren} from '../../util/util';
 
-export default class BlogPage extends React.Component {
-
-	constructor(props) {
-    super(props);
-		this.state = {
-			posts: []
-		};
-	}
+export class BlogPage extends React.Component {
 
 	componentDidMount() {
-		axios.get('/api/posts')
-			.then((res) => {
-				this.setState({ posts: res.data });
-			})
-			.catch((res) => {
-				alert('Error: ' + res.data);
-			});
+		BlogActions.fetchPosts();
 	}
 
 	render() {
-		const { posts } = this.state;
-		const { postId } = this.props.params;
+		const { posts, params } = this.props;
+		const { postId } = params;
 
 		let children;
 		if (postId) {
 			const post = _.find(posts, { id: parseInt(postId, 10) });
 			children = post ? (<BlogDetail post={post} />) : null;
 		} else {
-			children = (<BlogList posts={this.state.posts} />);
+			children = (<BlogList posts={posts} />);
 		}
 
 		return (
@@ -45,3 +33,12 @@ export default class BlogPage extends React.Component {
 		);
 	}
 }
+
+const setProps = (state) => {
+  return {
+    posts: state.posts
+  }
+};
+
+export default connect(setProps)(BlogPage);
+
