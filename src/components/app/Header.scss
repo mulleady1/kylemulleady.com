@@ -1,0 +1,36 @@
+.nav {
+	padding: 0 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 55px;
+	border-bottom: 1px solid #555;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	opacity: 0.9;
+	background: #000;
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		height: 100%;
+		li {
+			margin: 0 10px;
+			display: flex;
+			align-items: center;
+			a {
+				display: block;
+				padding: 7px 10px;
+				border: 1px solid #333;
+				text-decoration: none;
+				&:hover {
+					border-color: #3f7390;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
