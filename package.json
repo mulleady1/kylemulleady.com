@@ -4,6 +4,7 @@
   "description": "",
   "main": " ",
   "scripts": {
+		"start": "webpack && node server",
     "test": "./node_modules/.bin/mocha 'src/**/*.spec.js'"
   },
   "author": "",

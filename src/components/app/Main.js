@@ -14,7 +14,7 @@ export default class Main extends React.Component {
 					</div>
 					<div>
 						<p>Front-end expert.</p>
-						<p>React/Redux evangelist.</p>
+						<p>React specialist.</p>
 						<p>.NET Core advocate.</p>
 					</div>
 				</section>

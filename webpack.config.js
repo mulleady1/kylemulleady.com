@@ -11,9 +11,8 @@ module.exports = {
 	],
 	output: {
 		path: path.join(__dirname, 'wwwroot'),
-		filename: 'bundle.js',
-		libraryTarget: 'umd',
-		publicPath: '/static/'
+		filename: 'js/bundle.js',
+		libraryTarget: 'umd'
 	},
 	module: {
 		loaders: [
