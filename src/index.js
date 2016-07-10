@@ -6,9 +6,11 @@ import { Router, Route, IndexRoute, Redirect, IndexRedirect } from 'react-router
 import history from './history';
 import store from './store';
 import App from './components/app/App';
-import About from './components/about/About';
-import Contact from './components/contact/Contact';
+import Login from './components/login/Login';
 import BlogPage from './components/blog/BlogPage';
+import debug from 'debug';
+
+window._debug = debug;
 
 if (process.env.NODE_ENV === 'development') {
 	axios.defaults.baseURL = 'http://localhost:5000';
@@ -18,8 +20,7 @@ ReactDOM.render((
 	<Provider store={store}>
 		<Router history={history}>
 			<Route path="/" component={App}>
-				<Route path="/about" component={About} />
-				<Route path="/contact" component={Contact} />
+				<Route path="/login" component={Login} />
 				<Route path="/blog" component={BlogPage} />
 				<Route path="/blog/:postId" component={BlogPage} />
 			</Route>

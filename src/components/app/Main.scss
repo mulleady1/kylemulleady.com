@@ -1,5 +1,34 @@
-.main section {
-	margin-top: 50px;
+.main {
+	section {
+		margin-top: 50px;
+	}
+	form {
+		margin: auto;
+		max-width: 800px;
+		& > div {
+			margin-bottom: 25px;
+		}
+	}
+	input, textarea, button {
+		display: block;
+		width: 100%;
+		padding: 9px;
+		font-size: 18px;
+		border: 1px solid #555;
+		background: transparent;
+		appearance: none;
+		color: #a9a9a9;
+	}
+	textarea {
+		min-height: 125px;
+	}
+	button:hover {
+		background: #1a1a1a;
+		cursor: pointer;
+	}
+	button:active {
+		background: #252525;
+	}
 }
 .narrow {
 	max-width: 1000px;

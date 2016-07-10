@@ -1,5 +1,14 @@
 import {combineReducers} from 'redux';
-import {SET_POSTS} from '../constants';
+import {LOGIN, SET_POSTS} from '../constants';
+
+function app(state={}, action) {
+	switch (action.type) {
+		case LOGIN:
+			return action.user;
+		default:
+			return state;
+	}
+}
 
 function posts(state=[], action) {
 	switch (action.type) {
@@ -11,6 +20,7 @@ function posts(state=[], action) {
 }
 
 const reducers = combineReducers({
+	app,
 	posts
 });
 

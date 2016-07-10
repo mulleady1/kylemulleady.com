@@ -3,6 +3,19 @@ import NavLink from '../shared/NavLink';
 import styles from './Main.scss';
 
 export default class Main extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			name: '',
+			email: '',
+			message: ''
+		};
+
+		this.onChange = this.onChange.bind(this);
+		this.onSubmitClick = this.onSubmitClick.bind(this);
+	}
+	
 	render() {
 		return (
 			<div className={styles.main}>
@@ -34,7 +47,45 @@ export default class Main extends React.Component {
 						<li>Infrastructure: DigitalOcean and AWS</li>
 					</ul>
 				</section>
+				<section className={styles.narrow}>
+					<h2>Contact</h2>
+					<form>
+						<div>
+							<input 
+								type="text" 
+								value={this.state.name}
+								placeholder="Name" 
+								onChange={(e) => this.onChange('name', e.target.value)} />
+						</div>
+						<div>
+							<input 
+								type="text" 
+								value={this.state.email} 
+								placeholder="Email" 
+								onChange={(e) => this.onChange('email', e.target.value)} />
+						</div>
+						<div>
+							<textarea 
+								value={this.state.message} 
+								placeholder="Message" 
+								onChange={(e) => this.onChange('message', e.target.value)} />
+						</div>
+						<div>
+							<button onClick={this.onSubmitClick}>SUBMIT</button>
+						</div>
+					</form>
+				</section>
 			</div>
 		);
 	}
+
+	onChange(prop, value) {
+		this.setState({ [prop]: value });
+	}
+
+	onSubmitClick(e) {
+		e.preventDefault();
+		console.log('%O', this.state);
+	}
+	
 }
