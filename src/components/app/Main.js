@@ -31,6 +31,7 @@ export default class Main extends React.Component {
 						<li>Frontend: React ecosystem (React Router, Redux, Enzyme, React Hot Loader, etc.)</li>
 						<li>Backend: REST APIs built on .NET Core, Python, or Node</li>
 						<li>Database: Abstracted data access with ORMs such as Entity Framework, Django, or Loopback</li>
+						<li>Infrastructure: DigitalOcean and AWS</li>
 					</ul>
 				</section>
 			</div>

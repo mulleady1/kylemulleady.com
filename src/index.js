@@ -10,7 +10,7 @@ import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import BlogPage from './components/blog/BlogPage';
 
-if (window.location.port === '5001') {
+if (process.env.NODE_ENV === 'development') {
 	axios.defaults.baseURL = 'http://localhost:5000';
 }
 

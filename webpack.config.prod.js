@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -25,7 +26,10 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin('css/styles.css')
+		new ExtractTextPlugin('css/styles.css'),
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': '"production"'
+		})
 	],
 	postcss: [autoprefixer({ browsers: ['last 2 versions'] })]
 };

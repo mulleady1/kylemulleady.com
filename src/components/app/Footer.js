@@ -6,7 +6,7 @@ export default class Footer extends React.Component {
 	render() {
 		return (
 			<div className={styles.footer}>
-				&copy; 2016 Kyle Mulleady
+				&copy; {new Date().getFullYear()} Kyle Mulleady
 			</div>
 		);
 	}
