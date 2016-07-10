@@ -17,10 +17,10 @@ namespace KM
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+            .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -29,13 +29,13 @@ namespace KM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-			services.AddCors();
+            services.AddCors();
             // Add framework services.
             services.AddMvc();
 
-			services.AddDbContext<KmDbContext>(options => 
-				options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
-			);
+            services.AddDbContext<KmDbContext>(options =>
+            options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +44,9 @@ namespace KM
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-			app.UseCors(builder => builder.WithOrigins("http://localhost:5001"));
+            app.UseCors(builder => builder.WithOrigins("http://localhost:5001"));
 
-			app.UseDefaultFiles();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
         }
