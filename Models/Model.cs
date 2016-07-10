@@ -6,19 +6,19 @@ namespace KM.Models
 {
     public class KmDbContext : DbContext
     {
-		public KmDbContext() : base()
-    	{ }
+        public KmDbContext() : base()
+        { }
 
-		public KmDbContext(DbContextOptions<KmDbContext> options) : base(options)
-    	{ }
+        public KmDbContext(DbContextOptions<KmDbContext> options) : base(options)
+        { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlite("Filename=./db.db");
-		}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Filename=./db.db");
+        }
     }
 
     public class User
@@ -35,14 +35,14 @@ namespace KM.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-		public DateTime Created { get; set; }
-		
-		public int UserId { get; set; }
-		public User User { get; set; }
+        public DateTime Created { get; set; }
 
-		public Post() 
-		{
-			this.Created = DateTime.UtcNow;
-		}
+        public int UserId { get; set; }
+        public User User { get; set; }
+
+        public Post()
+        {
+            this.Created = DateTime.UtcNow;
+        }
     }
 }
