@@ -20,3 +20,8 @@ a {
 a:not(.plain):hover {
 	text-decoration: underline;
 }
+.loading {
+	margin: 50px auto;
+	max-width: 300px;
+	text-align: center; 
+}

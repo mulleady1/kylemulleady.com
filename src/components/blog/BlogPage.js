@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import NavLink from '../shared/NavLink';
+import Loading from '../shared/Loading';
 import BlogList from './BlogList';
 import BlogDetail from './BlogDetail';
 import BlogActions from '../../actions/BlogActions';
@@ -19,7 +19,9 @@ export class BlogPage extends React.Component {
 		const { postId } = params;
 
 		let children;
-		if (postId) {
+		if (!posts.length) {
+			children = (<Loading />);
+		} else if (postId) {
 			const post = _.find(posts, { id: parseInt(postId, 10) });
 			children = post ? (<BlogDetail post={post} />) : null;
 		} else {
