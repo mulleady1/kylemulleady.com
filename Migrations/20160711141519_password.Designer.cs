@@ -8,9 +8,10 @@ using KM.Models;
 namespace WebAPIApplication.Migrations
 {
     [DbContext(typeof(KmDbContext))]
-    partial class KmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160711141519_password")]
+    partial class password
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
@@ -39,8 +40,6 @@ namespace WebAPIApplication.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Created");
 
                     b.Property<string>("Email");
 
