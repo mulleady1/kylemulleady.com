@@ -26,6 +26,8 @@ export default class Main extends React.Component {
 			</div>
 		);
 
+		const podsyLogo = (<img className={styles.podsyLogo} src="/images/podsy-logo.png" />);
+
 		return (
 			<div className={styles.main}>
 				<section className={styles.firstSection}>
@@ -41,7 +43,7 @@ export default class Main extends React.Component {
 				<section className={styles.narrow}>
 					<h2>Projects</h2>
 					<Image src="/images/budgeter.png" link="https://getbudgeter.com" logo={budgeterLogo} />
-					<img src="/images/2.jpeg" />
+					<Image src="/images/podsy.png" link="http://podsylisten.com" logo={podsyLogo} />
 					<img src="/images/3.jpg" />
 					<img src="/images/4.jpeg" />
 				</section>

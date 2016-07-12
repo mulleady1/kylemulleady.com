@@ -1,11 +1,10 @@
 .imgWrapper {
-	display: block;
+	display: inline-block;
 	position: relative;
 	width: 50%;
-	img {
-		display: block;
-		width: 100%;
-	}
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 180px;
 }
 .overlay, .logoWrapper {
 	opacity: 0;
