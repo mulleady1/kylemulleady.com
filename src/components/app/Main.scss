@@ -68,7 +68,7 @@
 }
 
 @media (min-width: 1025px) {
-	.main section {
-		margin-top: 75px;
+	.main section:not(.firstSection) {
+		margin-top: 125px;
 	}
 }

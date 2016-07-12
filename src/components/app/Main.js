@@ -34,11 +34,11 @@ export default class Main extends React.Component {
 						<p>ReactJS consultant.</p>
 					</div>
 					<div>
-						<p>Front-end entusiast.</p>
+						<p>Front-end enthusiast.</p>
 						<p>.NET Core advocate.</p>
 					</div>
 				</section>
-				<section className={styles.imagesContainer}>
+				<section className={styles.narrow}>
 					<h2>Projects</h2>
 					<Image src="/images/budgeter.png" link="https://getbudgeter.com" logo={budgeterLogo} />
 					<img src="/images/2.jpeg" />
