@@ -17,10 +17,11 @@ namespace KM
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-            .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-            .AddEnvironmentVariables();
+				.SetBasePath(env.ContentRootPath)
+				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+				.AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -30,11 +31,9 @@ namespace KM
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            // Add framework services.
             services.AddMvc();
-
             services.AddDbContext<KmDbContext>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+            	options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
         }
 
@@ -44,7 +43,10 @@ namespace KM
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:5001"));
+			if (env.IsDevelopment())
+			{
+            	app.UseCors(builder => builder.AllowAnyOrigin());
+			}
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

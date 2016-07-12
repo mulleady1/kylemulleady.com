@@ -7,7 +7,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/kylemulleady.com.dll",
-            "args": [],
+            "args": [
+							"server.urls=http://0.0.0.0:5000"
+						],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
             "launchBrowser": {
