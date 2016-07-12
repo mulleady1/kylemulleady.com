@@ -7,9 +7,16 @@ export default class Image extends React.Component {
 			style = {
 				backgroundImage: `url(${src})`
 			};
+			
+		let props = {};
+		if (link) {
+			props.href = link;
+			props.target = '_blank';
+			props.style = style;
+		}
 
 		return (
-			<a className={styles.imgWrapper} href={link} target="_blank" style={style}>
+			<a className={styles.imgWrapper} {...props}>
 				<div className={styles.overlay}></div>
 				<div className={styles.logoWrapper}>
 					{logo}

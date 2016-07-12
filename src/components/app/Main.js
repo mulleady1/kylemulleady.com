@@ -51,6 +51,7 @@ export default class Main extends React.Component {
 					<Image src="/images/budgeter.png" link="https://getbudgeter.com" logo={budgeterLogo} />
 					<Image src="/images/podsy.png" link="http://podsylisten.com" logo={podsyLogo} />
 					<Image src="/images/jah.png" link="http://jahengineering.com" logo={jahLogo} />
+					<Image logo={<div>Yours!</div>} />
 				</section>
 				<section className={styles.narrow}>
 					<h2>Technologies</h2>
