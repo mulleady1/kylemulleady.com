@@ -36,23 +36,34 @@
 	padding: 20px;
 }
 .firstSection {
-	max-width: 600px;
+	max-width: 500px;
 	margin: auto;
 	padding: 20px;
 	display: flex;
 	justify-content: space-between;
 }
-.imagesContainer {
-	img {
-		display: block;
-		float: left;
-		width: 50%;
-		height: 300px;
+.budgeterLogo {    
+	background: transparent;
+	font-family: 'Bitter';
+	border: 1px solid #008840;
+	border-radius: 50%;
+	width: 75px;
+	height: 75px;
+	position: relative;
+	.dollar {
+    position: absolute;
+    font-size: 80px;
+    color: #008840;
+    opacity: .5;
+    top: -12px;
+    left: 8px;
 	}
-	&:after {
-		content: ' ';
-		display: block;
-		clear: both;
+	.b {
+    font-size: 75px;
+    color: #008840;
+    position: absolute;
+    top: -6px;
+    left: 16px;
 	}
 }
 
