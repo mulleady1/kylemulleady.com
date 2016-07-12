@@ -4,8 +4,10 @@
 	"description": "",
 	"main": " ",
 	"scripts": {
-		"start": "webpack && node server",
-		"test": "./node_modules/.bin/mocha 'src/**/*.spec.js'"
+		"start": "ASPNETCORE_ENVIRONMENT=development dotnet run server.urls=http://0.0.0.0:5000",
+		"test": "./node_modules/.bin/mocha 'src/**/*.spec.js'",
+		"dev": "webpack && node server",
+		"build": "webpack --config webpack.config.prod.js -p"
 	},
 	"author": "",
 	"license": "ISC",
