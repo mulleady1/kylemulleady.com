@@ -5,8 +5,6 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
 	devtool: 'eval',
 	entry: [
-		'webpack-dev-server/client?http://localhost:5001',
-		'webpack/hot/only-dev-server',
 		'./src/index'
 	],
 	output: {
@@ -19,7 +17,7 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				loaders: ['react-hot', 'babel']
+				loaders: ['babel']
 			},
 			{
 				test: /\.(css|scss)$/,
@@ -28,7 +26,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': '"development"'
 		})

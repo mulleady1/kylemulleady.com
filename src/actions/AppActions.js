@@ -5,8 +5,8 @@ import {LOGIN} from '../constants';
 const debug = require('debug')('km:actions:AppActions');
 
 export default class AppActions {
-	static login() {
-		axios.post('/api/login')
+	static login(username, password) {
+		axios.post('/api/login', { username, password })
 			.then((res) => {
 				store.dispatch({
 					type: LOGIN,
