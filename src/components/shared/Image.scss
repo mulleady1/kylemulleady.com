@@ -1,7 +1,7 @@
 .imgWrapper {
 	display: inline-block;
 	position: relative;
-	width: 50%;
+	width: 100%;
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 180px;
@@ -37,4 +37,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+@media (min-width: 500px) {
+	.imgWrapper {
+		width: 50%;
+	}	
 }
