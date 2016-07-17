@@ -1,7 +1,11 @@
 import React from 'react';
+import AppActions from '../../actions/AppActions';
 import NavLink from '../shared/NavLink';
 import Image from '../shared/Image';
 import styles from './Main.scss';
+
+const SUBMIT = 'SUBMIT';
+const PROCESSING = 'PROCESSING...';
 
 export default class Main extends React.Component {
 
@@ -10,7 +14,10 @@ export default class Main extends React.Component {
 		this.state = {
 			name: '',
 			email: '',
-			message: ''
+			message: '',
+			submitBtnText: SUBMIT,
+			messageSent: false,
+			feedback: null
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -64,31 +71,49 @@ export default class Main extends React.Component {
 				</section>
 				<section className={styles.narrow}>
 					<h2>Contact</h2>
-					<form>
+					{ this.state.messageSent ? (
 						<div>
-							<input
-								type="text"
-								value={this.state.name}
-								placeholder="Name"
-								onChange={(e) => this.onChange('name', e.target.value) } />
+							<p>Thanks! We'll be in touch soon.</p>
+							<div>
+								<button className={styles.small} onClick={() => this.setState({ messageSent: false })}>SEND ANOTHER MESSAGE</button>
+							</div>
 						</div>
-						<div>
-							<input
-								type="text"
-								value={this.state.email}
-								placeholder="Email"
-								onChange={(e) => this.onChange('email', e.target.value) } />
-						</div>
-						<div>
-							<textarea
-								value={this.state.message}
-								placeholder="Message"
-								onChange={(e) => this.onChange('message', e.target.value) } />
-						</div>
-						<div>
-							<button onClick={this.onSubmitClick}>SUBMIT</button>
-						</div>
-					</form>
+					) : (
+						<form>
+							<div>
+								<input
+									type="text"
+									value={this.state.name}
+									placeholder="Name"
+									onChange={(e) => this.onChange('name', e.target.value) } />
+							</div>
+							<div>
+								<input
+									type="text"
+									value={this.state.email}
+									placeholder="Email"
+									onChange={(e) => this.onChange('email', e.target.value) } />
+							</div>
+							<div>
+								<textarea
+									value={this.state.message}
+									placeholder="Message"
+									onChange={(e) => this.onChange('message', e.target.value) } />
+							</div>
+							<div>
+								<button
+									disabled={this.state.submitBtnText !== SUBMIT}
+									onClick={this.onSubmitClick}>{this.state.submitBtnText}</button>
+							</div>
+							{ this.state.feedback ? (
+								<div>
+									<div>{this.state.feedback}</div>
+								</div>
+							) : null
+							}
+						</form>
+					)
+					}
 				</section>
 			</div>
 		);
@@ -101,6 +126,20 @@ export default class Main extends React.Component {
 	onSubmitClick(e) {
 		e.preventDefault();
 		console.log('%O', this.state);
+		const { name, email, message } = this.state;
+		if (!(name && email && message)) {
+			alert('Please fill in all fields.');
+			return;
+		}
+
+		this.setState({ submitBtnText: PROCESSING });
+		return AppActions.sendContactRequestMessage(this.state)
+			.then((data) => {
+				this.setState({ messageSent: true, submitBtnText: SUBMIT });
+			})
+			.catch((err) => {
+				this.setState({ feedback: 'Oops! An error occurred. Please try again.', submitBtnText: SUBMIT });
+			});
 	}
 
 }
