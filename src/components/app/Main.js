@@ -125,7 +125,6 @@ export default class Main extends React.Component {
 
 	onSubmitClick(e) {
 		e.preventDefault();
-		console.log('%O', this.state);
 		const { name, email, message } = this.state;
 		if (!(name && email && message)) {
 			alert('Please fill in all fields.');

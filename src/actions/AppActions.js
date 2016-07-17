@@ -1,6 +1,7 @@
 import store from '../store';
 import axios from 'axios';
-import {LOGIN} from '../constants';
+import history from '../history';
+import {LOGIN, LOGOUT} from '../constants';
 
 const debug = require('debug')('km:actions:AppActions');
 
@@ -12,11 +13,22 @@ export default class AppActions {
 					type: LOGIN,
 					user: res.data
 				});
+
+				return res.data;
 			})
 			.catch((res) => {
 				debug('Error logging in.');
 				debug('res:', res);
+				return Promise.reject(new Error('Invalid credentials.'));
 			});
+	}
+
+	static logout() {
+		store.dispatch({
+			type: LOGOUT
+		});
+
+		history.push('/');
 	}
 
 	static sendContactRequestMessage(data) {
@@ -32,4 +44,5 @@ export default class AppActions {
 				return Promise.reject(new Error(res.data));
 			});
 	}
+
 }

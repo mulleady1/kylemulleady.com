@@ -1,5 +1,6 @@
 import React from 'react';
 import AppActions from '../../actions/AppActions';
+import history from '../../history';
 import _ from 'lodash';
 import styles from './Login.scss';
 
@@ -9,7 +10,8 @@ export default class Login extends React.Component {
 		super(props);
 		this.state = {
 			username: '',
-			password: ''
+			password: '',
+			message: ''
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -21,6 +23,10 @@ export default class Login extends React.Component {
 			<div className={styles.wrapper}>
 				<h2>Login</h2>
 				<form ref="form">
+					{ this.state.message ? (
+						<div>{this.state.message}</div>
+					) : null
+					}
 					<div>
 						<input
 							type="text"
@@ -44,13 +50,19 @@ export default class Login extends React.Component {
 	}
 
 	onChange(prop, value) {
-		this.setState({ [prop]: value });
+		this.setState({ [prop]: value, message: '' });
 	}
 
 	onSubmitClick(e) {
 		e.preventDefault();
-		AppActions.login(this.state.username, this.state.password);
-		this.setState({ username: '', password: '' });
+		AppActions.login(this.state.username, this.state.password)
+			.then((data) => {
+				this.setState({ username: '', password: '' });
+				history.push('/');
+			})
+			.catch((err) => {
+				this.setState({ message: err.message });
+			});
 	}
 	
 }

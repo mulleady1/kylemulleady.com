@@ -1,10 +1,18 @@
 import {combineReducers} from 'redux';
-import {LOGIN, SET_POSTS} from '../constants';
+import {LOGIN, LOGOUT, SET_POSTS} from '../constants';
 
-function app(state={}, action) {
+function app(state={ user: null }, action) {
 	switch (action.type) {
 		case LOGIN:
-			return action.user;
+			return {
+				...state,
+				user: action.user
+			};
+		case LOGOUT:
+			return {
+				...state,
+				user: null
+			}
 		default:
 			return state;
 	}
