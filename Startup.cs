@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +10,11 @@ namespace KM
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration { get; }
+
         public Startup(IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
+			var builder = new ConfigurationBuilder()
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
@@ -25,14 +23,13 @@ namespace KM
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+			services.AddOptions();
+			services.Configure<MailgunOptions>(Configuration.GetSection("Mailgun"));
             services.AddCors();
             services.AddMvc();
-            services.AddDbContext<KmDbContext>(options =>
+			services.AddDbContext<KmDbContext>(options =>
             	options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
         }
