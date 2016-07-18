@@ -9,7 +9,7 @@ config.module.loaders[1].loader = 'style-loader!css-loader?modules&importLoaders
 config.plugins[0] = new webpack.HotModuleReplacementPlugin();
 
 const HOST = '0.0.0.0';
-const PORT = 5001;
+const PORT = 6001;
 
 new WebpackDevServer(webpack(config), {
 	publicPath: config.output.publicPath,

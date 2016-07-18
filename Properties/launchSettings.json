@@ -19,7 +19,7 @@
     "KM": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://0.0.0.0:5000/",
+      "launchUrl": "http://0.0.0.0:6000/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
