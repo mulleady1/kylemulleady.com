@@ -240,3 +240,4 @@ styles.css.map
 
 appsettings.*.json
 dist/
+wwwroot/images/*
