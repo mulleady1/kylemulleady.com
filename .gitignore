@@ -238,5 +238,5 @@ bundle.js.map
 styles.css
 styles.css.map
 
-appsettings.production.json
-appsettings.test.json
+appsettings.*.json
+dist/

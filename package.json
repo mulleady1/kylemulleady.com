@@ -7,7 +7,9 @@
 		"start": "ASPNETCORE_ENVIRONMENT=development dotnet run server.urls=http://0.0.0.0:6000",
 		"test": "./node_modules/.bin/mocha 'src/**/*.spec.js'",
 		"dev": "webpack && node server",
-		"build": "webpack --config webpack.config.prod.js -p"
+		"build:fe": "webpack --config webpack.config.prod.js -p",
+		"build:be": "dotnet publish -c release -o dist/",
+		"build": "npm run build:fe && npm run build:be"
 	},
 	"author": "",
 	"license": "ISC",
