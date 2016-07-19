@@ -1,6 +1,6 @@
 import {jsdom} from 'jsdom';
 
-global.document = jsdom('<!doctype html><html><body><div id="app"></div></body></html>', { url: 'http://localhost:5000' });
+global.document = jsdom('<!doctype html><html><body><div id="app"></div></body></html>', { url: 'http://localhost:5001' });
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
 
