@@ -11,7 +11,7 @@
 		"build:be": "dotnet publish -c Release -o dist/",
 		"build": "npm run build:fe && npm run build:be"
 	},
-	"author": "",
+	"author": "Kyle Mulleady",
 	"license": "ISC",
 	"dependencies": {
 		"axios": "^0.12.0",
