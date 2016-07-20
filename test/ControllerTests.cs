@@ -1,5 +1,6 @@
 using KM.Models;
 using KM.Models.ViewModels;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Xunit;
 
@@ -19,7 +20,8 @@ namespace KM.Controllers
 
             var db = new KmDbContext();
 			var options = Options.Create(new MailgunOptions { Url = "" });
-            var controller = new ContactController(db, options);
+			var logger = new Logger<ContactController>(new LoggerFactory());
+            var controller = new ContactController(db, options, logger);
             var result = await controller.Post(model);
 			Assert.True(result.Success);
         }

@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using KM.Models;
+using Serilog;
+using Serilog.Sinks.RollingFile;
 
 namespace KM
 {
@@ -14,40 +16,50 @@ namespace KM
 
         public Startup(IHostingEnvironment env)
         {
-			var builder = new ConfigurationBuilder()
-				.SetBasePath(env.ContentRootPath)
-				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-				.AddEnvironmentVariables();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+
+            Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.WriteTo.RollingFile("/var/log/kylemulleady.com/log-{Date}.txt")
+				.CreateLogger();
+
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-			services.AddOptions();
-			services.Configure<MailgunOptions>(Configuration.GetSection("Mailgun"));
+            services.AddOptions();
+            services.Configure<MailgunOptions>(Configuration.GetSection("Mailgun"));
             services.AddCors();
             services.AddMvc();
-			services.AddDbContext<KmDbContext>(options =>
-            	options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+            services.AddDbContext<KmDbContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            if (env.IsDevelopment())
+            {
+				loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+	            loggerFactory.AddDebug();
 
-			if (env.IsDevelopment())
+                app.UseCors(builder =>
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                );
+            }
+			else 
 			{
-            	app.UseCors(builder => 
-					builder
-						.AllowAnyOrigin()
-						.AllowAnyHeader()
-						.AllowAnyMethod()
-				);
+				loggerFactory.AddSerilog();
 			}
 
             app.UseDefaultFiles();
