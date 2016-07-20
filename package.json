@@ -8,7 +8,7 @@
 		"test": "./node_modules/.bin/mocha 'src/**/*.spec.js'",
 		"dev": "webpack && node server",
 		"build:fe": "webpack --config webpack.config.prod.js -p",
-		"build:be": "dotnet publish -c Release -o dist/ && tar czf dist.tar.gz dist/",
+		"build:be": "dotnet publish -c Release -o dist/",
 		"build": "npm run build:fe && npm run build:be"
 	},
 	"author": "",
