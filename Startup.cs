@@ -16,6 +16,11 @@ namespace KM
 
         public Startup(IHostingEnvironment env)
         {
+            Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.WriteTo.RollingFile("/var/www/kylemulleady.com/logs/log-{Date}.txt")
+				.CreateLogger();
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -23,12 +28,6 @@ namespace KM
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
-
-            Log.Logger = new LoggerConfiguration()
-				.MinimumLevel.Debug()
-				.WriteTo.RollingFile("/var/log/kylemulleady.com/log-{Date}.txt")
-				.CreateLogger();
-
         }
 
         public void ConfigureServices(IServiceCollection services)
