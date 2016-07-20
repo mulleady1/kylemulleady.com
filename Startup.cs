@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using KM.Models;
-using Serilog;
-using Serilog.Sinks.RollingFile;
 
 namespace KM
 {
@@ -16,11 +14,6 @@ namespace KM
 
         public Startup(IHostingEnvironment env)
         {
-            Log.Logger = new LoggerConfiguration()
-				.MinimumLevel.Debug()
-				.WriteTo.RollingFile("/var/www/kylemulleady.com/logs/log-{Date}.txt")
-				.CreateLogger();
-
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -44,11 +37,12 @@ namespace KM
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+
             if (env.IsDevelopment())
             {
-				loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-	            loggerFactory.AddDebug();
-
                 app.UseCors(builder =>
                     builder
                         .AllowAnyOrigin()
@@ -56,10 +50,6 @@ namespace KM
                         .AllowAnyMethod()
                 );
             }
-			else 
-			{
-				loggerFactory.AddSerilog();
-			}
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
