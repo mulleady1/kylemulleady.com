@@ -240,5 +240,4 @@ styles.css.map
 
 appsettings.*.json
 dist/
-wwwroot/images/*
 dist.tar.gz

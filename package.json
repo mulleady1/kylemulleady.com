@@ -4,7 +4,7 @@
 	"description": "",
 	"main": " ",
 	"scripts": {
-		"start": "ASPNETCORE_ENVIRONMENT=development dotnet run server.urls=http://0.0.0.0:5001",
+		"start": "ASPNETCORE_ENVIRONMENT=development dotnet run server.urls=http://0.0.0.0:5000",
 		"test": "./node_modules/.bin/mocha 'src/**/*.spec.js'",
 		"dev": "webpack && node server",
 		"build:fe": "webpack --config webpack.config.prod.js -p",

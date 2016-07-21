@@ -13,7 +13,7 @@ import debug from 'debug';
 window._debug = debug;
 
 if (process.env.NODE_ENV === 'development') {
-	axios.defaults.baseURL = `http://${window.location.hostname}:5001`;
+	axios.defaults.baseURL = `http://${window.location.hostname}:5000`;
 }
 
 ReactDOM.render((
