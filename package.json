@@ -1,7 +1,7 @@
 {
 	"name": "kylemulleady.com",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Repository for the kylemulleady.com website",
 	"main": " ",
 	"scripts": {
 		"start": "ASPNETCORE_ENVIRONMENT=development dotnet run server.urls=http://0.0.0.0:5001",
