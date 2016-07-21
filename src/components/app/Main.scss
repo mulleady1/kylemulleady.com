@@ -35,6 +35,9 @@ button:hover {
 button:active {
 	background: #252525;
 }
+button[disabled] {
+	cursor: initial;
+}
 button.small {
 	width: auto;
 	font-size: 0.9em;

@@ -2,6 +2,7 @@ import React from 'react';
 import AppActions from '../../actions/AppActions';
 import history from '../../history';
 import _ from 'lodash';
+import Button from '../shared/Button';
 import styles from './Login.scss';
 
 export default class Login extends React.Component {
@@ -11,7 +12,8 @@ export default class Login extends React.Component {
 		this.state = {
 			username: '',
 			password: '',
-			message: ''
+			message: '',
+			processing: false
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -42,7 +44,7 @@ export default class Login extends React.Component {
 							onChange={(e) => this.onChange('password', e.target.value) } />
 					</div>
 					<div>
-						<button onClick={this.onSubmitClick}>SUBMIT</button>
+						<Button onClick={this.onSubmitClick} processing={this.state.processing} />
 					</div>
 				</form>
 			</div>
@@ -55,13 +57,14 @@ export default class Login extends React.Component {
 
 	onSubmitClick(e) {
 		e.preventDefault();
+		this.setState({ processing: true });
 		AppActions.login(this.state.username, this.state.password)
 			.then((data) => {
-				this.setState({ username: '', password: '' });
+				this.setState({ username: '', password: '', processing: false });
 				history.push('/');
 			})
 			.catch((err) => {
-				this.setState({ message: err.message });
+				this.setState({ message: err.message, processing: false });
 			});
 	}
 	
