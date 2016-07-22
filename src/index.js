@@ -8,6 +8,7 @@ import store from './store';
 import App from './components/app/App';
 import Login from './components/login/Login';
 import BlogPage from './components/blog/BlogPage';
+import BlogForm from './components/blog/BlogForm';
 import debug from 'debug';
 
 window._debug = debug;
@@ -20,9 +21,10 @@ ReactDOM.render((
 	<Provider store={store}>
 		<Router history={history}>
 			<Route path="/" component={App}>
-				<Route path="/login" component={Login} />
-				<Route path="/blog" component={BlogPage} />
-				<Route path="/blog/:postId" component={BlogPage} />
+				<Route path="login" component={Login} />
+				<Route path="blog" component={BlogPage} />
+				<Route path="blog/new" component={BlogForm} />
+				<Route path="blog/:postId" component={BlogPage} />
 			</Route>
 		</Router>
 	</Provider>
