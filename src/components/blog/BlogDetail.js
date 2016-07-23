@@ -12,6 +12,10 @@ export default class BlogDetail extends React.Component {
 	render() {
 		const { post } = this.props;
 
+		if (!post) {
+			return null;
+		}
+
 		return (
 			<div>
 				<div className={styles.summary}>

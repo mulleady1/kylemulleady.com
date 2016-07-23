@@ -21,29 +21,32 @@ input, textarea, button {
 textarea {
 	min-height: 125px;
 }
-button {
-	border-width: 2px;
+button, a[role^="btn"] {
+	border: 2px solid #555;
+	padding: 10px 20px;
 	font-size: 16px;
 	color: #666;
 	font-weight: 400;
 	letter-spacing: 1px;
-}
-button:hover {
-	border-color: #3f7390;
-	cursor: pointer;
-}
-button:active {
-	background: #252525;
-}
-button[disabled] {
-	cursor: initial;
 	&:hover {
-		border-color: #555;
+		border-color: #3f7390;
+		cursor: pointer;
+		text-decoration: none;
 	}
-}
-button.small {
-	width: auto;
-	font-size: 0.9em;
+	&:active {
+		background: #252525;
+	}
+	&[disabled] {
+		cursor: initial;
+		&:hover {
+			border-color: #555;
+		}
+	}
+	&[role="btn-sm"] {
+		width: auto;
+		font-size: 0.8em;
+		padding: 8px 17px;
+	}
 }
 .main {
 	section {

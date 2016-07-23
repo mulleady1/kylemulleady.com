@@ -15,18 +15,12 @@ export class BlogPage extends React.Component {
 	}
 
 	render() {
-		const { posts, params } = this.props;
-		const { postId } = params;
-
-		let children;
-		if (!posts.length) {
-			children = (<Loading />);
-		} else if (postId) {
-			const post = _.find(posts, { id: parseInt(postId, 10) });
-			children = post ? (<BlogDetail post={post} />) : null;
-		} else {
-			children = (<BlogList posts={posts} />);
-		}
+		const { posts, params } = this.props,
+			post = _.find(posts, { id: parseInt(params.postId, 10) }),
+			children = addPropsToChildren(this.props.children, {
+				posts,
+				post
+			});
 
 		return (
 			<div className={styles.blog}>
