@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using KM.Models;
+using System;
 
 namespace KM
 {
@@ -12,8 +13,12 @@ namespace KM
     {
         public IConfigurationRoot Configuration { get; }
 
+		private bool IsDevelopment;
+
         public Startup(IHostingEnvironment env)
         {
+			this.IsDevelopment = env.IsDevelopment();
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -25,6 +30,19 @@ namespace KM
 
         public void ConfigureServices(IServiceCollection services)
         {
+			services.AddDistributedMemoryCache();
+			if (this.IsDevelopment)
+			{
+				services.AddSession(options => {
+					options.IdleTimeout = TimeSpan.FromDays(30);
+					options.CookieHttpOnly = false;
+				});
+			}
+			else 
+			{
+				services.AddSession();
+			}
+			
             services.AddOptions();
             services.Configure<MailgunOptions>(Configuration.GetSection("Mailgun"));
             services.AddCors();
@@ -39,18 +57,19 @@ namespace KM
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-
-            if (env.IsDevelopment())
+			
+            if (this.IsDevelopment)
             {
                 app.UseCors(builder =>
                     builder
-                        .AllowAnyOrigin()
+                        .WithOrigins(new string[] { "http://0.0.0.0:5001", "http://localhost:5001" })
                         .AllowAnyHeader()
+						.AllowCredentials()
                         .AllowAnyMethod()
                 );
             }
 
+			app.UseSession();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();

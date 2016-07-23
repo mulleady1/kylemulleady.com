@@ -23,8 +23,11 @@ export default class BlogDetail extends React.Component {
 						{post.title}
 						<small>{moment(post.created).format(FORMAT) }</small>
 					</h1>
+					<h3>
+						{post.subtitle}
+					</h3>
 				</div>
-				<p className={styles.content}>
+				<p className={styles.body}>
 					{post.content}
 				</p>
 			</div>

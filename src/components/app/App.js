@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import AppActions from '../../actions/AppActions';
 import Header from './Header';
 import Footer from './Footer';
 import NavLink from '../shared/NavLink';
@@ -11,6 +12,10 @@ export class App extends React.Component {
 		return {
 			user: this.props.user
 		};
+	}
+
+	componentWillMount() {
+		AppActions.getSession();
 	}
 
 	render() {

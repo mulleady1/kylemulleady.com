@@ -18,6 +18,7 @@ window._debug = debug;
 
 if (process.env.NODE_ENV === 'development') {
 	axios.defaults.baseURL = `http://${window.location.hostname}:5000`;
+	axios.defaults.withCredentials = true;
 }
 
 ReactDOM.render((

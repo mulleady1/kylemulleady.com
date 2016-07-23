@@ -25,9 +25,7 @@ export default class BlogActions {
 	}
 
 	static createPost(title, subtitle, body) {
-		const userId = 1;//store.getState().app.user.id;
 		const data = {
-			userId,
 			title,
 			subtitle,
 			body
@@ -37,7 +35,7 @@ export default class BlogActions {
 			.then((res) => {
 				store.dispatch({
 					type: ADD_POST,
-					user: res.data
+					post: res.data
 				});
 
 				return res.data;

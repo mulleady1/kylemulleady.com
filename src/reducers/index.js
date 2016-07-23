@@ -1,5 +1,10 @@
 import {combineReducers} from 'redux';
-import {LOGIN, LOGOUT, SET_POSTS} from '../constants';
+import {
+	LOGIN, 
+	LOGOUT, 
+	SET_POSTS, 
+	ADD_POST
+} from '../constants';
 
 function app(state={ user: null }, action) {
 	switch (action.type) {
@@ -12,7 +17,7 @@ function app(state={ user: null }, action) {
 			return {
 				...state,
 				user: null
-			}
+			};
 		default:
 			return state;
 	}
@@ -22,6 +27,11 @@ function posts(state=[], action) {
 	switch (action.type) {
 		case SET_POSTS:
 			return action.posts;
+		case ADD_POST:
+			return {
+				...state,
+				[action.post.id]: action.post
+			};
 		default:
 			return state;
 	}

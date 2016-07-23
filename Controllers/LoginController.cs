@@ -1,12 +1,13 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using KM.Extensions;
 using KM.Models;
 using KM.Models.ViewModels;
 
 namespace KM.Controllers
 {
     [Route("api/[controller]")]
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private KmDbContext _db;
 
@@ -14,6 +15,23 @@ namespace KM.Controllers
         {
             _db = db;
         }
+
+		// GET api/login
+		[HttpGet]
+		public ActionResult Get()
+		{
+			var user = this._user;
+			if (user == null)
+			{
+				return new EmptyResult();
+			}
+
+			return new JsonResult(new
+            {
+                username = user.Username,
+                email = user.Email
+            });
+		}
 
         // POST api/login
         [HttpPost]
@@ -34,6 +52,8 @@ namespace KM.Controllers
             {
                 return BadRequest("Invalid credentials");
             }
+
+			HttpContext.Session.SetObject("user", user);
 
             return new JsonResult(new
             {

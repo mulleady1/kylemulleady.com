@@ -6,7 +6,7 @@ using KM.Models;
 namespace KM.Controllers
 {
     [Route("api/[controller]")]
-    public class PostsController : Controller
+    public class PostsController : BaseController
     {
         private KmDbContext _db;
 
@@ -33,6 +33,11 @@ namespace KM.Controllers
         [HttpPost]
         public Post Post([FromBody]Post post)
         {
+			if (post.UserId == 0)
+			{
+				post.UserId = this._userId;
+			}
+
             _db.Posts.Add(post);
             _db.SaveChanges();
             return post;
