@@ -8,9 +8,10 @@ using KM.Models;
 namespace WebAPIApplication.Migrations
 {
     [DbContext(typeof(KmDbContext))]
-    partial class KmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160723202709_blog-subtitle")]
+    partial class blogsubtitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
@@ -21,6 +22,8 @@ namespace WebAPIApplication.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Body");
+
+                    b.Property<string>("Content");
 
                     b.Property<DateTime>("Created");
 

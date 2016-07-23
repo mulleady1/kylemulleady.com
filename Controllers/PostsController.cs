@@ -44,7 +44,8 @@ namespace KM.Controllers
         {
             var existingPost = _db.Posts.First(p => p.Id == id);
             existingPost.Title = post.Title;
-            existingPost.Content = post.Content;
+            existingPost.Subtitle = post.Subtitle;
+            existingPost.Body = post.Body;
             _db.SaveChanges();
         }
 
