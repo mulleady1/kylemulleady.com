@@ -1,27 +1,20 @@
 import React from 'react';
 import AppActions from '../../actions/AppActions';
-import NavLink from '../shared/NavLink';
+import Form from '../shared/Form';
 import Image from '../shared/Image';
 import styles from './Main.scss';
-
-const SUBMIT = 'SUBMIT';
-const PROCESSING = 'PROCESSING...';
 
 export default class Main extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: '',
-			email: '',
-			message: '',
-			submitBtnText: SUBMIT,
+			processing: false,
 			messageSent: false,
 			feedback: null
 		};
 
-		this.onChange = this.onChange.bind(this);
-		this.onSubmitClick = this.onSubmitClick.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 	}
 
 	render() {
@@ -40,6 +33,12 @@ export default class Main extends React.Component {
 				<span>JAH</span>
 			</div>
 		);
+
+		const inputs = [
+			{ type: 'text', name: 'name', placeholder: 'Name' },
+			{ type: 'text', name: 'email', placeholder: 'Email' },
+			{ type: 'textarea', name: 'message', placeholder: 'Message' }
+		];
 
 		return (
 			<div className={styles.main}>
@@ -70,7 +69,6 @@ export default class Main extends React.Component {
 					</ul>
 				</section>
 				<section className={styles.narrow}>
-					<h2>Contact</h2>
 					{ this.state.messageSent ? (
 						<div>
 							<p>Thanks! We'll be in touch soon.</p>
@@ -79,39 +77,12 @@ export default class Main extends React.Component {
 							</div>
 						</div>
 					) : (
-						<form>
-							<div>
-								<input
-									type="text"
-									value={this.state.name}
-									placeholder="Name"
-									onChange={(e) => this.onChange('name', e.target.value) } />
-							</div>
-							<div>
-								<input
-									type="text"
-									value={this.state.email}
-									placeholder="Email"
-									onChange={(e) => this.onChange('email', e.target.value) } />
-							</div>
-							<div>
-								<textarea
-									value={this.state.message}
-									placeholder="Message"
-									onChange={(e) => this.onChange('message', e.target.value) } />
-							</div>
-							<div>
-								<button
-									disabled={this.state.submitBtnText !== SUBMIT}
-									onClick={this.onSubmitClick}>{this.state.submitBtnText}</button>
-							</div>
-							{ this.state.feedback ? (
-								<div>
-									<div>{this.state.feedback}</div>
-								</div>
-							) : null
-							}
-						</form>
+						<Form 
+							title="Contact" 
+							inputs={inputs}
+							processing={this.state.processing} 
+							feedback={this.state.feedback} 
+							onSubmit={this.onSubmit} />
 					)
 					}
 				</section>
@@ -119,25 +90,20 @@ export default class Main extends React.Component {
 		);
 	}
 
-	onChange(prop, value) {
-		this.setState({ [prop]: value });
-	}
-
-	onSubmitClick(e) {
-		e.preventDefault();
-		const { name, email, message } = this.state;
+	onSubmit(data) {
+		const { name, email, message } = data;
 		if (!(name && email && message)) {
 			alert('Please fill in all fields.');
 			return;
 		}
 
-		this.setState({ submitBtnText: PROCESSING });
-		return AppActions.sendContactRequestMessage(this.state)
+		this.setState({ processing: true, feedback: null });
+		return AppActions.sendContactRequestMessage(name, email, message)
 			.then((data) => {
-				this.setState({ messageSent: true, submitBtnText: SUBMIT });
+				this.setState({ messageSent: true, processing: false });
 			})
 			.catch((err) => {
-				this.setState({ feedback: 'Oops! An error occurred. Please try again.', submitBtnText: SUBMIT });
+				this.setState({ feedback: 'Oops! An error occurred. Please try again.', processing: false });
 			});
 	}
 

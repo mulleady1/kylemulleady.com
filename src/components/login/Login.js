@@ -10,8 +10,8 @@ export default class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			message: '',
-			processing: false
+			processing: false,
+			feedback: null
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -29,26 +29,24 @@ export default class Login extends React.Component {
 				<Form 
 					title="Login" 
 					inputs={inputs}
-					message={this.state.message} 
 					processing={this.state.processing} 
+					feedback={this.state.feedback} 
 					onSubmit={this.onSubmit} />
 			</div>
 		);
 	}
 
-	onChange(prop, value) {
-		this.setState({ [prop]: value, message: '' });
-	}
-
 	onSubmit(data) {
-		this.setState({ processing: true, message: '' });
-		return AppActions.login(this.state.username, this.state.password)
+		const { username, password } = data;
+
+		this.setState({ processing: true, feedback: null });
+		return AppActions.login(username, password)
 			.then((data) => {
-				this.setState({ username: '', password: '', processing: false });
+				this.setState({ processing: false, username: '', password: '' });
 				history.push('/');
 			})
 			.catch((err) => {
-				this.setState({ message: err.message, processing: false });
+				this.setState({ processing: false, feedback: err.message });
 			});
 	}
 	

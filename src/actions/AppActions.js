@@ -31,7 +31,13 @@ export default class AppActions {
 		history.push('/');
 	}
 
-	static sendContactRequestMessage(data) {
+	static sendContactRequestMessage(name, email, message) {
+		const data = {
+			name,
+			email,
+			message
+		};
+		
 		return axios.post('/api/contact', data)
 			.then((res) => {
 				debug('sendContactRequestMessage success');

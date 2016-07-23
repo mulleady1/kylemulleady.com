@@ -10,6 +10,11 @@ export default class BlogForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.onSubmit = this.onSubmit.bind(this);
+
+		this.state = {
+			processing: false,
+			feedback: null
+		};
 	}
 	
 	render() {
@@ -21,19 +26,27 @@ export default class BlogForm extends React.Component {
 
 		return (
 			<div className={styles.wrapper}>
-				<Form title="New blog post" inputs={inputs} onSubmit={this.onSubmit} />
+				<Form 
+					title="New blog post" 
+					inputs={inputs} 
+					processing={this.state.processing} 
+					feedback={this.state.feedback} 
+					onSubmit={this.onSubmit} />
 			</div>
 		);
 	}
 
 	onSubmit(data) {
 		const { title, subtitle, body } = data;
+
+		this.setState({ processing: true, feedback: null });
 		return BlogActions.createPost(title, subtitle, body)
 			.then((data) => {
-				debugger;
+				this.setState({ processing: false });
 				history.push(`/blog/${data.id}`);
 			})
 			.catch((err) => {
+				this.setState({ processing: false, feedback: err.message });
 				// Do stuff.
 			});
 	}

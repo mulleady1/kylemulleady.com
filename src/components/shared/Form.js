@@ -8,7 +8,7 @@ export default class Form extends React.Component {
 
 		this.state = {
 			processing: false,
-			message: ''
+			feedback: null
 		};
 
 		props.inputs.forEach(input => this.state[input.name] = '');
@@ -18,18 +18,26 @@ export default class Form extends React.Component {
 	}
 
 	componentWillMount() {
-		this.setMessage(this.props);
+		this.setFeedbackAndProcessingState(this.props);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setMessage(nextProps);
+		this.setFeedbackAndProcessingState(nextProps);
 	}
 
-	setMessage(props) {
-		const { message } = props;
-		if (message) {
-			this.setState({ message });
+	setFeedbackAndProcessingState(props) {
+		const { feedback, processing } = props;
+		let nextState = {};
+		
+		if (feedback !== this.state.feedback) {
+			nextState.feedback = feedback;
 		}
+
+		if (processing !== this.state.processing) {
+			nextState.processing = processing;
+		}
+
+		this.setState(nextState);
 	}
 
 	render() {
@@ -80,8 +88,8 @@ export default class Form extends React.Component {
 		return (
 			<form onSubmit={this.onSubmit}>
 				<h2>{this.props.title}</h2>
-				{ this.state.message ? (
-					<div>{this.state.message}</div>
+				{ this.state.feedback ? (
+					<div>{this.state.feedback}</div>
 				) : null
 				}
 				{inputs}
@@ -90,13 +98,14 @@ export default class Form extends React.Component {
 	}
 
 	onChange(prop, value) {
-		this.setState({ [prop]: value, message: '' });
+		this.setState({ [prop]: value, feedback: null });
 	}
 
 	onSubmit(e) {
 		e.preventDefault();
 		let data = { ...this.state };
 		delete data.processing;
+		delete data.feedback;
 		this.props.onSubmit(data);
 	}
 

@@ -37,6 +37,9 @@ button:active {
 }
 button[disabled] {
 	cursor: initial;
+	&:hover {
+		border-color: #555;
+	}
 }
 button.small {
 	width: auto;
