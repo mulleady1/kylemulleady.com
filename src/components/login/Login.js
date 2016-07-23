@@ -14,7 +14,6 @@ export default class Login extends React.Component {
 			feedback: null
 		};
 
-		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 	

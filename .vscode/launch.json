@@ -8,7 +8,7 @@
 			"preLaunchTask": "build",
 			"program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/kylemulleady.com.dll",
 			"args": [
-				"server.urls=http://0.0.0.0:5001"
+				"server.urls=http://0.0.0.0:5000"
 			],
 			"cwd": "${workspaceRoot}",
 			"stopAtEntry": false,
