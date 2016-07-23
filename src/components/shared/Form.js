@@ -7,7 +7,8 @@ export default class Form extends React.Component {
 		super(props);
 
 		this.state = {
-			processing: false
+			processing: false,
+			message: ''
 		};
 
 		props.inputs.forEach(input => this.state[input.name] = '');
@@ -16,42 +17,57 @@ export default class Form extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
+	componentWillMount() {
+		this.setMessage(this.props);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setMessage(nextProps);
+	}
+
+	setMessage(props) {
+		const { message } = props;
+		if (message) {
+			this.setState({ message });
+		}
+	}
+
 	render() {
-		let inputs = this.props.inputs.map((input, i) => {
-			let el;
-			switch (input.type) {
+		let inputs = this.props.inputs.map((data, i) => {
+			let input;
+			switch (data.type) {
 				case 'textarea':
-					el = (
-						<textarea 
-							value={this.state[input.name]}
-							placeholder={input.placeholder}
-							onChange={(e) => this.onChange(input.name, e.target.value)} />
+					input = (
+						<textarea
+							value={this.state[data.name]}
+							placeholder={data.placeholder}
+							onChange={(e) => this.onChange(data.name, e.target.value) } />
 					);
 					break;
 				case 'checkbox':
 				case 'radio':
-					el = (
+					input = (
 						<label>
-							<input 
-								type={input.type} 
-								value={this.state[input.name]}
-								onChange={(e) => this.onChange(input.name, e.target.checked)} />
-							{input.label}
+							<input
+								type={data.type}
+								value={this.state[data.name]}
+								onChange={(e) => this.onChange(data.name, e.target.checked) } />
+							{data.label}
 						</label>
 					);
 					break;
 				default:
-					el = (
-						<input 
-							type={input.type} 
-							value={this.state[input.name]}
-							placeholder={input.placeholder} 
-							onChange={(e) => this.onChange(input.name, e.target.value)} />
+					input = (
+						<input
+							type={data.type}
+							value={this.state[data.name]}
+							placeholder={data.placeholder}
+							onChange={(e) => this.onChange(data.name, e.target.value) } />
 					);
 			}
 
 			return (
-				<div key={i}>{el}</div>
+				<div key={i}>{input}</div>
 			);
 		});
 
@@ -63,18 +79,23 @@ export default class Form extends React.Component {
 
 		return (
 			<form onSubmit={this.onSubmit}>
-				<h3>{this.props.title}</h3>
+				<h2>{this.props.title}</h2>
+				{ this.state.message ? (
+					<div>{this.state.message}</div>
+				) : null
+				}
 				{inputs}
 			</form>
 		);
 	}
 
 	onChange(prop, value) {
-		this.setState({ [prop]: value });
+		this.setState({ [prop]: value, message: '' });
 	}
 
-	onSubmit() {
-		let data = {...this.state};
+	onSubmit(e) {
+		e.preventDefault();
+		let data = { ...this.state };
 		delete data.processing;
 		this.props.onSubmit(data);
 	}

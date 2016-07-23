@@ -1,6 +1,9 @@
 import React from 'react';
 import moment from 'moment';
+import history from '../../history';
+import BlogActions from '../../actions/BlogActions';
 import Form from '../shared/Form';
+import styles from './BlogForm.scss';
 
 export default class BlogForm extends React.Component {
 
@@ -17,11 +20,21 @@ export default class BlogForm extends React.Component {
 		];
 
 		return (
-			<Form title="New blog post" inputs={inputs} onSubmit={this.onSubmit} />
+			<div className={styles.wrapper}>
+				<Form title="New blog post" inputs={inputs} onSubmit={this.onSubmit} />
+			</div>
 		);
 	}
 
 	onSubmit(data) {
-		debugger;
+		const { title, subtitle, body } = data;
+		return BlogActions.createPost(title, subtitle, body)
+			.then((data) => {
+				debugger;
+				history.push(`/blog/${data.id}`);
+			})
+			.catch((err) => {
+				// Do stuff.
+			});
 	}
 }

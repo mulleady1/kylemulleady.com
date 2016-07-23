@@ -1,6 +1,6 @@
 import store from '../store';
 import axios from 'axios';
-import {FIVE_MINUTES, SET_POSTS} from '../constants';
+import {FIVE_MINUTES, SET_POSTS, ADD_POST} from '../constants';
 
 const debug = require('debug')('km:actions:BlogActions');
 
@@ -21,6 +21,32 @@ export default class BlogActions {
 			})
 			.catch((res) => {
 				debug('Error fetching posts:', res);
+			});
+	}
+
+	static createPost(title, subtitle, body) {
+		const userId = 1;//store.getState().app.user.id;
+		const data = {
+			userId,
+			title,
+			subtitle,
+			body
+		};
+
+		return axios.post('/api/posts', data)
+			.then((res) => {
+				store.dispatch({
+					type: ADD_POST,
+					user: res.data
+				});
+
+				return res.data;
+			})
+			.catch((res) => {
+				const msg = 'Error creating post.'; 
+				debug(msg);
+				debug('res:', res);
+				return Promise.reject(new Error(msg));
 			});
 	}
 }
