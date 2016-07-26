@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using KM.Models;
 using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace KM
 {
@@ -13,43 +14,33 @@ namespace KM
     {
         public IConfigurationRoot Configuration { get; }
 
-		private bool IsDevelopment;
+        private bool IsDevelopment;
 
         public Startup(IHostingEnvironment env)
         {
-			this.IsDevelopment = env.IsDevelopment();
+            this.IsDevelopment = env.IsDevelopment();
 
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+            .AddEnvironmentVariables();
 
             Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-			services.AddDistributedMemoryCache();
-			if (this.IsDevelopment)
-			{
-				services.AddSession(options => {
-					options.IdleTimeout = TimeSpan.FromDays(30);
-					options.CookieHttpOnly = false;
-				});
-			}
-			else 
-			{
-				services.AddSession();
-			}
-			
             services.AddOptions();
             services.Configure<MailgunOptions>(Configuration.GetSection("Mailgun"));
             services.AddCors();
             services.AddMvc();
             services.AddDbContext<KmDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+            	options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+				.AddEntityFrameworkStores<KmDbContext>()
+				.AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,21 +48,21 @@ namespace KM
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-			
+
             if (this.IsDevelopment)
             {
                 app.UseCors(builder =>
-                    builder
-                        .WithOrigins(new string[] { "http://0.0.0.0:5001", "http://localhost:5001" })
-                        .AllowAnyHeader()
-						.AllowCredentials()
-                        .AllowAnyMethod()
+                builder
+                .WithOrigins(new string[] { "http://0.0.0.0:5001", "http://localhost:5001" })
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .AllowAnyMethod()
                 );
             }
 
-			app.UseSession();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+			app.UseIdentity();
             app.UseMvc();
         }
     }

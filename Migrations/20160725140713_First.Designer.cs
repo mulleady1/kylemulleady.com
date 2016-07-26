@@ -8,9 +8,10 @@ using KM.Models;
 namespace kylemulleady.com.Migrations
 {
     [DbContext(typeof(KmDbContext))]
-    partial class KmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160725140713_First")]
+    partial class First
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");

@@ -1,64 +1,67 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using KM.Extensions;
 using KM.Models;
 using KM.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace KM.Controllers
 {
     [Route("api/[controller]")]
-    public class LoginController : BaseController
+    public class LoginController : Controller
     {
         private KmDbContext _db;
+		private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LoginController(KmDbContext db)
+        public LoginController(
+			KmDbContext db, 
+			UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _db = db;
+			_userManager = userManager;
+			_signInManager = signInManager;
         }
 
 		// GET api/login
 		[HttpGet]
 		public ActionResult Get()
 		{
-			var user = this._user;
-			if (user == null)
+			var username = this.User.Identity.Name;
+
+			if (username == null)
 			{
 				return new EmptyResult();
 			}
 
 			return new JsonResult(new
             {
-                username = user.Username,
-                email = user.Email
+                username = username
             });
 		}
 
         // POST api/login
         [HttpPost]
-        public ActionResult Post([FromBody]LoginViewModel model)
+        public async Task<ActionResult> Post([FromBody]LoginViewModel model)
         {
             if (!ModelState.IsValid || model == null)
             {
                 return BadRequest("Bad request");
             }
+			
+			var user = _db.Users.FirstOrDefault(u => u.UserName == model.Username || u.Email == model.Username);
 
-            var user = _db.Users.FirstOrDefault(u => u.Username == model.Username || u.Email == model.Username);
-            if (user == null)
+			var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
+
+			if (!result.Succeeded)
+			{
+				return BadRequest("Invalid credentials");
+			}
+
+			return new JsonResult(new
             {
-                return BadRequest("User not found");
-            }
-
-            if (KM.Models.User.HashPassword(model.Password) != user.Password)
-            {
-                return BadRequest("Invalid credentials");
-            }
-
-			HttpContext.Session.SetObject("user", user);
-
-            return new JsonResult(new
-            {
-                username = user.Username,
-                email = user.Email
+                username = user.UserName
             });
         }
 

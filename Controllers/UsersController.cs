@@ -17,60 +17,63 @@ namespace KM.Controllers
 
         // GET api/users
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<ApplicationUser> Get()
         {
-            return _db.Users.ToArray();
+            // return _db.Users.ToArray();
+			return null;
         }
 
         // GET api/users/5
         [HttpGet("{id}")]
-        public User Get(int id)
+        public ApplicationUser Get(int id)
         {
-            return _db.Users.FirstOrDefault(p => p.Id == id);
+            // return _db.Users.FirstOrDefault(p => p.Id == id);
+			return null;
         }
 
         // POST api/users
         [HttpPost]
-        public User Post([FromBody]User user)
+        public ApplicationUser Post([FromBody]ApplicationUser user)
         {
-			user.Password = KM.Models.User.HashPassword(user.Password);
-            _db.Users.Add(user);
-            _db.SaveChanges();
-            return user;
+			// user.Password = KM.Models.User.HashPassword(user.Password);
+            // _db.Users.Add(user);
+            // _db.SaveChanges();
+            // return user;
+			return null;
         }
 
         // PUT api/users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]User user)
+        public void Put(int id, [FromBody]ApplicationUser user)
         {
-            var existingUser = _db.Users.First(p => p.Id == id);
+            // var existingUser = _db.Users.First(p => p.Id == id);
             
-			if (user.Username != null)
-			{
-				existingUser.Username = user.Username;
-			}
-            if (user.Email != null)
-			{
-				existingUser.Email = user.Email;
-			}
-			if (user.Password != null)
-			{
-				existingUser.Password = KM.Models.User.HashPassword(user.Password);
-			}
+			// if (user.Username != null)
+			// {
+			// 	existingUser.Username = user.Username;
+			// }
+            // if (user.Email != null)
+			// {
+			// 	existingUser.Email = user.Email;
+			// }
+			// if (user.Password != null)
+			// {
+			// 	existingUser.Password = KM.Models.User.HashPassword(user.Password);
+			// }
 
-            _db.SaveChanges();
+            // _db.SaveChanges();
         }
 
         // DELETE api/users/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var user = _db.Users.FirstOrDefault(p => p.Id == id);
-            if (user != null)
-            {
-                _db.Users.Remove(user);
-                _db.SaveChanges();
-            }
+            // var user = _db.Users.FirstOrDefault(p => p.Id == id);
+            // if (user != null)
+            // {
+            //     _db.Users.Remove(user);
+            //     _db.SaveChanges();
+            // }
         }
     }
 }
