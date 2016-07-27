@@ -6,13 +6,11 @@ using KM.Models;
 namespace KM.Controllers
 {
     [Route("api/[controller]")]
-    public class PostsController : Controller
+    public class PostsController : BaseController
     {
-        private KmDbContext _db;
 
-        public PostsController(KmDbContext db)
+        public PostsController(KmDbContext db) : base(db)
         {
-            _db = db;
         }
 
         // GET api/posts
@@ -33,9 +31,9 @@ namespace KM.Controllers
         [HttpPost]
         public Post Post([FromBody]Post post)
         {
-			if (post.UserId == 0)
+			if (string.IsNullOrEmpty(post.UserId))
 			{
-				post.UserId = 1;//this._userId;
+				post.UserId = this._userId;
 			}
 
             _db.Posts.Add(post);

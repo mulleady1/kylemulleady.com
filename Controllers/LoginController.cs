@@ -8,19 +8,17 @@ using System.Threading.Tasks;
 namespace KM.Controllers
 {
     [Route("api/[controller]")]
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
-        private KmDbContext _db;
 		private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public LoginController(
 			KmDbContext db, 
 			UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager) : base(db)
         {
-            _db = db;
-			_userManager = userManager;
+            _userManager = userManager;
 			_signInManager = signInManager;
         }
 

@@ -11,17 +11,14 @@ using Microsoft.Extensions.Logging;
 namespace KM.Controllers
 {
     [Route("api/[controller]")]
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
         private readonly IOptions<MailgunOptions> _mailgunOptions;
 
-        private readonly KmDbContext _db;
-
         private readonly ILogger<ContactController> _logger;
 
-        public ContactController(KmDbContext db, IOptions<MailgunOptions> mailgunOptions, ILogger<ContactController> logger)
+        public ContactController(KmDbContext db, IOptions<MailgunOptions> mailgunOptions, ILogger<ContactController> logger) : base(db)
         {
-            _db = db;
             _mailgunOptions = mailgunOptions;
 			_logger = logger;
         }

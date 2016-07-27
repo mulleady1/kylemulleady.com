@@ -31,9 +31,9 @@ namespace KM.Models
 			Assert.True(result.Succeeded);
         }
 
-		[Fact]
-        public async void TestLogin()
-        {
+		// [Fact]
+        // public async void TestLogin()
+        // {
 			// var username = Environment.GetEnvironmentVariable("KM_TEST_USERNAME");
 			// var password = Environment.GetEnvironmentVariable("KM_TEST_PASSWORD");
 			// if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -52,7 +52,7 @@ namespace KM.Models
 			
             // var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 			// Assert.True(result.Succeeded);
-        }
+        // }
 
 		private UserManager<ApplicationUser> GetUserManager()
 		{
