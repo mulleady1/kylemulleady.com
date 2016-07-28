@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using KM.Models;
 using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace KM
 {
@@ -34,13 +35,15 @@ namespace KM
             services.AddOptions();
             services.Configure<MailgunOptions>(Configuration.GetSection("Mailgun"));
             services.AddCors();
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            );
             services.AddDbContext<KmDbContext>(options =>
-            	options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
             services.AddIdentity<ApplicationUser, IdentityRole>()
-				.AddEntityFrameworkStores<KmDbContext>()
-				.AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<KmDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +65,7 @@ namespace KM
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-			app.UseIdentity();
+            app.UseIdentity();
             app.UseMvc();
         }
     }

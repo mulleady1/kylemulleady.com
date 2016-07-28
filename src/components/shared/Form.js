@@ -70,7 +70,8 @@ export default class Form extends React.Component {
 							type={data.type}
 							value={this.state[data.name]}
 							placeholder={data.placeholder}
-							onChange={(e) => this.onChange(data.name, e.target.value) } />
+							onChange={(e) => this.onChange(data.name, e.target.value) }
+							{...data.props} />
 					);
 			}
 

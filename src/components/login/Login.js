@@ -19,7 +19,7 @@ export default class Login extends React.Component {
 	
 	render() {
 		const inputs = [
-			{ type: 'text', name: 'username', placeholder: 'Username or email' },
+			{ type: 'text', name: 'username', placeholder: 'Username or email', props: { autoCapitalize: 'off' }},
 			{ type: 'password', name: 'password', placeholder: 'Password' }
 		];
 
