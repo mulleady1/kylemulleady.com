@@ -24,7 +24,7 @@ export class BlogPage extends React.Component {
 
 		return (
 			<div className={styles.blog}>
-				{children}
+				{addPropsToChildren(children, { posts })}
 			</div>
 		);
 	}

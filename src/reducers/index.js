@@ -3,7 +3,8 @@ import {
 	LOGIN, 
 	LOGOUT, 
 	SET_POSTS, 
-	ADD_POST
+	ADD_POST,
+	UPDATE_POST
 } from '../constants';
 
 function app(state={ user: null }, action) {
@@ -28,10 +29,11 @@ function posts(state=[], action) {
 		case SET_POSTS:
 			return action.posts;
 		case ADD_POST:
-			return {
-				...state,
-				[action.post.id]: action.post
-			};
+			return state.concat(action.post);
+		case UPDATE_POST:
+			return state
+				.filter(p => p.id !== action.post.id)
+				.concat(action.post);
 		default:
 			return state;
 	}

@@ -33,8 +33,11 @@ namespace KM.Controllers
 				return new EmptyResult();
 			}
 
+			var user = _db.Users.First(u => u.UserName == username);
+
 			return new JsonResult(new
             {
+				id = user.Id,
                 username = username
             });
 		}
@@ -59,6 +62,7 @@ namespace KM.Controllers
 
 			return new JsonResult(new
             {
+				id = user.Id,
                 username = user.UserName
             });
         }

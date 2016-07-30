@@ -11,7 +11,7 @@ export default class Form extends React.Component {
 			feedback: null
 		};
 
-		props.inputs.forEach(input => this.state[input.name] = '');
+		props.inputs.forEach(input => this.state[input.name] = input.value);
 
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -23,6 +23,12 @@ export default class Form extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setFeedbackAndProcessingState(nextProps);
+
+		if (this.props.inputs !== nextProps.inputs) {
+			let state = {};
+			nextProps.inputs.forEach(input => state[input.name] = input.value);
+			this.setState(state);
+		}
 	}
 
 	setFeedbackAndProcessingState(props) {

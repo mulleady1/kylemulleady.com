@@ -18,16 +18,18 @@ export default class BlogForm extends React.Component {
 	}
 	
 	render() {
-		const inputs = [
-			{ type: 'text', name: 'title', placeholder: 'Title' },
-			{ type: 'text', name: 'subtitle', placeholder: 'Subtitle' },
-			{ type: 'textarea', name: 'body', placeholder: 'Body' }
-		];
+		const post = this.props.post || {},
+			title = post ? 'Edit blog post' : 'New blog post',
+			inputs = [
+				{ type: 'text', name: 'title', placeholder: 'Title', value: post.title },
+				{ type: 'text', name: 'subtitle', placeholder: 'Subtitle', value: post.subtitle },
+				{ type: 'textarea', name: 'body', placeholder: 'Body', value: post.body }
+			];
 
 		return (
 			<div className={styles.wrapper}>
 				<Form 
-					title="New blog post" 
+					title={title} 
 					inputs={inputs} 
 					processing={this.state.processing} 
 					feedback={this.state.feedback} 
@@ -40,7 +42,7 @@ export default class BlogForm extends React.Component {
 		const { title, subtitle, body } = data;
 
 		this.setState({ processing: true, feedback: null });
-		return BlogActions.createPost(title, subtitle, body)
+		return BlogActions.savePost(this.props.params.postId, title, subtitle, body)
 			.then((data) => {
 				this.setState({ processing: false });
 				history.push(`/blog/${data.id}`);

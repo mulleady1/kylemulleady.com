@@ -30,6 +30,7 @@ ReactDOM.render((
 				<Route path="blog" component={BlogPage}>
 					<IndexRoute component={BlogList} />
 					<Route path="new" component={BlogForm} />
+					<Route path=":postId/edit" component={BlogForm} />
 					<Route path=":postId" component={BlogDetail} />
 				</Route>
 			</Route>

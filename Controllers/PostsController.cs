@@ -43,13 +43,14 @@ namespace KM.Controllers
 
         // PUT api/posts/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Post post)
+        public Post Put(int id, [FromBody]Post post)
         {
             var existingPost = _db.Posts.First(p => p.Id == id);
             existingPost.Title = post.Title;
             existingPost.Subtitle = post.Subtitle;
             existingPost.Body = post.Body;
             _db.SaveChanges();
+			return existingPost;
         }
 
         // DELETE api/posts/5

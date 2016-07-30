@@ -1,5 +1,7 @@
 import React from 'react';
 import moment from 'moment';
+import marked from 'marked';
+import NavLink from '../shared/NavLink';
 import {FORMAT} from '../../constants';
 import styles from './BlogDetail.scss';
 
@@ -11,6 +13,7 @@ export default class BlogDetail extends React.Component {
 
 	render() {
 		const { post } = this.props;
+		const { user } = this.context;
 
 		if (!post) {
 			return null;
@@ -18,6 +21,12 @@ export default class BlogDetail extends React.Component {
 
 		return (
 			<div>
+				{ user && user.id === post.userId ? (
+					<div className={styles.btnContainer}>
+						<NavLink to={`/blog/${post.id}/edit`} role="btn-sm">EDIT</NavLink>
+					</div>
+				) : null
+				}
 				<div className={styles.summary}>
 					<h1>
 						{post.title}
@@ -27,10 +36,15 @@ export default class BlogDetail extends React.Component {
 						{post.subtitle}
 					</h3>
 				</div>
-				<p className={styles.body}>
-					{post.content}
+				<p 
+					className={styles.body}
+					dangerouslySetInnerHTML={{ __html: marked(post.body) }}>
 				</p>
 			</div>
 		);
 	}
 }
+
+BlogDetail.contextTypes = {
+	user: React.PropTypes.object
+};
