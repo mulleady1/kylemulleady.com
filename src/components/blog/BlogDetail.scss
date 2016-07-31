@@ -6,12 +6,15 @@
 		margin-top: 9px;
 	}
 }
-.content {
-	font-size: 21px;
-	white-space: pre-wrap;
+.body {
+	line-height: 1.5em;
+	font-size: 1.2em;
+	a {
+		font-weight: bold;
+	}
 }
 .btnContainer {
-	padding: 5px 10px;
+	padding: 10px 20px;
 	display: flex;
 	justify-content: flex-end;
 }

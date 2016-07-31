@@ -1,21 +1,9 @@
 import React from 'react';
-import AppActions from '../../actions/AppActions';
-import Form from '../shared/Form';
+import ContactForm from '../contact/ContactForm';
 import Image from '../shared/Image';
 import styles from './Main.scss';
 
 export default class Main extends React.Component {
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			processing: false,
-			messageSent: false,
-			feedback: null
-		};
-
-		this.onSubmit = this.onSubmit.bind(this);
-	}
 
 	render() {
 
@@ -33,12 +21,6 @@ export default class Main extends React.Component {
 				<span>JAH</span>
 			</div>
 		);
-
-		const inputs = [
-			{ type: 'text', name: 'name', placeholder: 'Name' },
-			{ type: 'text', name: 'email', placeholder: 'Email' },
-			{ type: 'textarea', name: 'message', placeholder: 'Message' }
-		];
 
 		return (
 			<div className={styles.main}>
@@ -69,42 +51,10 @@ export default class Main extends React.Component {
 					</ul>
 				</section>
 				<section className={styles.narrow}>
-					{ this.state.messageSent ? (
-						<div>
-							<p>Thanks! We'll be in touch soon.</p>
-							<div>
-								<button className={styles.small} onClick={() => this.setState({ messageSent: false })}>SEND ANOTHER MESSAGE</button>
-							</div>
-						</div>
-					) : (
-						<Form 
-							title="Contact" 
-							inputs={inputs}
-							processing={this.state.processing} 
-							feedback={this.state.feedback} 
-							onSubmit={this.onSubmit} />
-					)
-					}
+					<ContactForm />
 				</section>
 			</div>
 		);
-	}
-
-	onSubmit(data) {
-		const { name, email, message } = data;
-		if (!(name && email && message)) {
-			alert('Please fill in all fields.');
-			return;
-		}
-
-		this.setState({ processing: true, feedback: null });
-		return AppActions.sendContactRequestMessage(name, email, message)
-			.then((data) => {
-				this.setState({ messageSent: true, processing: false });
-			})
-			.catch((err) => {
-				this.setState({ feedback: 'Oops! An error occurred. Please try again.', processing: false });
-			});
 	}
 
 }

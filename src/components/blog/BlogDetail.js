@@ -1,4 +1,5 @@
 import React from 'react';
+import {render} from 'react-dom';
 import moment from 'moment';
 import marked from 'marked';
 import NavLink from '../shared/NavLink';

@@ -8,6 +8,7 @@ import store from './store';
 import App from './components/app/App';
 import Main from './components/app/Main';
 import Login from './components/login/Login';
+import ContactForm from './components/contact/ContactForm';
 import BlogPage from './components/blog/BlogPage';
 import BlogList from './components/blog/BlogList';
 import BlogDetail from './components/blog/BlogDetail';
@@ -27,6 +28,7 @@ ReactDOM.render((
 			<Route path="/" component={App}>
 				<IndexRoute component={Main} />
 				<Route path="login" component={Login} />
+				<Route path="contact" component={ContactForm} />
 				<Route path="blog" component={BlogPage}>
 					<IndexRoute component={BlogList} />
 					<Route path="new" component={BlogForm} />

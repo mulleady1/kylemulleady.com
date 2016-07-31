@@ -12,7 +12,7 @@ export default class BlogList extends React.Component {
 		return (
 			<div>
 				{ user ? (
-					<div className={styles.new}>
+					<div className={styles.btnContainer}>
 						<NavLink to="blog/new" role="btn-sm">NEW POST</NavLink>
 					</div>
 				) : null
