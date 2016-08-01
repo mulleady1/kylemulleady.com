@@ -19,7 +19,7 @@ export default class BlogForm extends React.Component {
 	
 	render() {
 		const post = this.props.post || {},
-			title = post ? 'Edit blog post' : 'New blog post',
+			title = post.id ? 'Edit blog post' : 'New blog post',
 			inputs = [
 				{ type: 'text', name: 'title', placeholder: 'Title', value: post.title },
 				{ type: 'text', name: 'subtitle', placeholder: 'Subtitle', value: post.subtitle },

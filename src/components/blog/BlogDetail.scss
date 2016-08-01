@@ -1,3 +1,6 @@
+.wrapper {
+	padding: 0 20px;
+}
 .summary {
 	small {
 		color: #aaa;
@@ -14,7 +17,7 @@
 	}
 }
 .btnContainer {
-	padding: 10px 20px;
+	padding: 10px 0;
 	display: flex;
 	justify-content: flex-end;
 }

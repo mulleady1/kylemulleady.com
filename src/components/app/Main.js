@@ -50,7 +50,7 @@ export default class Main extends React.Component {
 						<li>Infrastructure: DigitalOcean and AWS</li>
 					</ul>
 				</section>
-				<section className={styles.narrow}>
+				<section className={styles.contactForm}>
 					<ContactForm />
 				</section>
 			</div>

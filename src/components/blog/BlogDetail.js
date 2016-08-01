@@ -21,7 +21,7 @@ export default class BlogDetail extends React.Component {
 		}
 
 		return (
-			<div>
+			<div className={styles.wrapper}>
 				{ user && user.id === post.userId ? (
 					<div className={styles.btnContainer}>
 						<NavLink to={`/blog/${post.id}/edit`} role="btn-sm">EDIT</NavLink>

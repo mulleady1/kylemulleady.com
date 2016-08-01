@@ -241,3 +241,5 @@ styles.css.map
 appsettings.*.json
 dist/
 dist.tar.gz
+copy_db_from_production
+copy_db_to_production
