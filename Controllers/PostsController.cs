@@ -17,7 +17,7 @@ namespace KM.Controllers
         [HttpGet]
         public IEnumerable<Post> Get()
         {
-            return _db.Posts.ToArray();
+            return _db.Posts.OrderByDescending(p => p.Created).ToArray();
         }
 
         // GET api/posts/5

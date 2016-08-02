@@ -29,3 +29,9 @@ a:not(.plain):hover {
 	max-width: 300px;
 	text-align: center; 
 }
+
+@media (min-width: 768px) {
+	html {
+		font-size: 18px;
+	}
+}
