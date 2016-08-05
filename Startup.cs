@@ -22,10 +22,10 @@ namespace KM
             this.IsDevelopment = env.IsDevelopment();
 
             var builder = new ConfigurationBuilder()
-            .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-            .AddEnvironmentVariables();
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
 
             Configuration = builder.Build();
         }
@@ -41,7 +41,10 @@ namespace KM
             services.AddDbContext<KmDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services
+                .AddIdentity<ApplicationUser, IdentityRole>(options =>
+                    options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(1000)
+                )
                 .AddEntityFrameworkStores<KmDbContext>()
                 .AddDefaultTokenProviders();
         }
@@ -55,11 +58,11 @@ namespace KM
             if (this.IsDevelopment)
             {
                 app.UseCors(builder =>
-                builder
-                .WithOrigins(new string[] { "http://0.0.0.0:5001", "http://localhost:5001" })
-                .AllowAnyHeader()
-                .AllowCredentials()
-                .AllowAnyMethod()
+                    builder
+                        .WithOrigins(new string[] { "http://0.0.0.0:5001", "http://localhost:5001" })
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .AllowAnyMethod()
                 );
             }
 
