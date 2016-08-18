@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {Provider} from 'react-redux';
-import { Router, Route, IndexRoute, Redirect, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import history from './history';
 import store from './store';
 import App from './components/app/App';
@@ -18,8 +18,8 @@ import debug from 'debug';
 window._debug = debug;
 
 if (process.env.NODE_ENV === 'development') {
-	axios.defaults.baseURL = `http://${window.location.hostname}:5000`;
-	axios.defaults.withCredentials = true;
+  axios.defaults.baseURL = `http://${window.location.hostname}:5000`;
+  axios.defaults.withCredentials = true;
 }
 
 ReactDOM.render((
@@ -38,4 +38,4 @@ ReactDOM.render((
 			</Route>
 		</Router>
 	</Provider>
-), document.querySelector("#app"));
+), document.querySelector('#app'));
