@@ -11,13 +11,12 @@ export default class Form extends React.Component {
 			feedback: null
 		};
 
-		props.inputs.forEach(input => this.state[input.name] = input.value);
-
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
 	componentWillMount() {
+    this.setInputs(this.props);
 		this.setFeedbackAndProcessingState(this.props);
 	}
 
@@ -25,11 +24,19 @@ export default class Form extends React.Component {
 		this.setFeedbackAndProcessingState(nextProps);
 
 		if (this.props.inputs !== nextProps.inputs) {
-			let state = {};
-			nextProps.inputs.forEach(input => state[input.name] = input.value);
-			this.setState(state);
+			this.setInputs(nextProps);
 		}
 	}
+
+  setInputs(props) {
+    let state = {};
+		props.inputs.forEach(input => {
+      const value = input.value !== undefined ? input.value : '';
+      state[input.name] = value;
+    });
+
+    this.setState(state);
+  }
 
 	setFeedbackAndProcessingState(props) {
 		const { feedback, processing } = props;
