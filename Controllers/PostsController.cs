@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using KM.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KM.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class PostsController : BaseController
     {
 
@@ -15,6 +17,7 @@ namespace KM.Controllers
 
         // GET api/posts
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Post> Get()
         {
             return _db.Posts.OrderByDescending(p => p.Created).ToArray();
@@ -22,6 +25,7 @@ namespace KM.Controllers
 
         // GET api/posts/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public Post Get(int id)
         {
             return _db.Posts.FirstOrDefault(p => p.Id == id);
