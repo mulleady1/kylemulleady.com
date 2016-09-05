@@ -42,9 +42,10 @@ namespace KM
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
             services
-                .AddIdentity<ApplicationUser, IdentityRole>(options =>
-                    options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(1000)
-                )
+                .AddIdentity<ApplicationUser, IdentityRole>(options => {
+                    options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(1000);
+                    options.Cookies.ApplicationCookie.CookieDomain = ".kylemulleady.com";
+                })
                 .AddEntityFrameworkStores<KmDbContext>()
                 .AddDefaultTokenProviders();
         }
