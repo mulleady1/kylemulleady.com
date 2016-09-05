@@ -44,7 +44,11 @@ namespace KM
             services
                 .AddIdentity<ApplicationUser, IdentityRole>(options => {
                     options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(1000);
-                    options.Cookies.ApplicationCookie.CookieDomain = ".kylemulleady.com";
+                    var domain = Configuration.GetSection("Cookies")["Domain"];
+                    if (domain != null) 
+                    {
+                        options.Cookies.ApplicationCookie.CookieDomain = domain;
+                    } 
                 })
                 .AddEntityFrameworkStores<KmDbContext>()
                 .AddDefaultTokenProviders();
