@@ -1,76 +1,96 @@
-h2 {
-	font-size: 2em;
+:global {
+  h2 {
+    font-size: 2em;
+  }
+  form {
+    margin: auto;
+    max-width: 800px;
+    & > div {
+      margin-bottom: 25px;
+    }
+  }
+  input, textarea, button {
+    display: block;
+    width: 100%;
+    padding: 9px;
+    font-size: 18px;
+    border: 1px solid #555;
+    border-radius: 0;
+    background: transparent;
+    appearance: none;
+    color: #a9a9a9;
+  }
+  textarea {
+    min-height: 125px;
+  }
+  button, a[role^="btn"] {
+    border: 2px solid #555;
+    border-radius: 0;
+    appearance: none; 
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #666;
+    font-weight: 400;
+    letter-spacing: 1px;
+    &:hover {
+      border-color: #3f7390;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    &:active {
+      background: #252525;
+    }
+    &[disabled] {
+      cursor: initial;
+      &:hover {
+        border-color: #555;
+      }
+    }
+    &[role="btn-sm"] {
+      width: auto;
+      font-size: 0.8em;
+      padding: 8px 17px;
+    }
+  }
+  .page {
+    max-width: 1000px;
+	  margin: auto;
+    padding: 20px;
+  }
 }
-form {
-	margin: auto;
-	max-width: 800px;
-	& > div {
-		margin-bottom: 25px;
-	}
-}
-input, textarea, button {
-	display: block;
-	width: 100%;
-	padding: 9px;
-	font-size: 18px;
-	border: 1px solid #555;
-	border-radius: 0;
-	background: transparent;
-	appearance: none;
-	color: #a9a9a9;
-}
-textarea {
-	min-height: 125px;
-}
-button, a[role^="btn"] {
-	border: 2px solid #555;
-	border-radius: 0;
-	appearance: none; 
-	padding: 10px 20px;
-	font-size: 16px;
-	color: #666;
-	font-weight: 400;
-	letter-spacing: 1px;
-	&:hover {
-		border-color: #3f7390;
-		cursor: pointer;
-		text-decoration: none;
-	}
-	&:active {
-		background: #252525;
-	}
-	&[disabled] {
-		cursor: initial;
-		&:hover {
-			border-color: #555;
-		}
-	}
-	&[role="btn-sm"] {
-		width: auto;
-		font-size: 0.8em;
-		padding: 8px 17px;
-	}
-}
+
 .main {
 	section {
 		margin-top: 50px;
 	}
-}
-.narrow {
-	max-width: 1000px;
-	margin: auto;
-	padding: 20px;
 }
 .contactForm {
 	max-width: 1000px;
 	margin: auto;
 }
 .firstSection {
-	max-width: 500px;
-	margin: auto;
-	padding: 20px;
 	display: flex;
-	justify-content: space-between;
+  flex-wrap: wrap;
+	justify-content: center;
+  text-align: center;
+  div {
+    padding: 0 15px;
+    font-size: 18px;
+    flex: 0 1 350px;
+  }
+  p {
+    margin: 15px 0;
+  }
+}
+.imgContainer {
+  display: flex;
+  flex-wrap: wrap;
+  a {
+    flex: 1 1 48%;
+    min-width: 250px;
+    margin: 2px;
+    box-shadow: 0 0 3px 3px #111;
+  }
 }
 .budgeterLogo {    
 	background: transparent;

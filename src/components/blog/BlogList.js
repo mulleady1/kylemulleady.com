@@ -6,32 +6,34 @@ import styles from './BlogList.scss';
 
 export default class BlogList extends React.Component {
 
-	render() {
-		const { user } = this.context;
+  render() {
+    const { user } = this.context;
 
-		return (
-			<div>
-				{ user ? (
-					<div className={styles.btnContainer}>
-						<NavLink to="blog/new" role="btn-sm">NEW POST</NavLink>
-					</div>
-				) : null
-				}
-				<ul className={styles.list}>
-					{this.props.posts.map((post) => (
-						<li key={post.id}>
-							<NavLink to={`/blog/${post.id}`}>
-								<span className={styles.title}>{post.title}</span>
-								<span className={styles.created}>{moment(post.created).format(FORMAT) }</span>
-							</NavLink>
-						</li>
-					)) }
-				</ul>
-			</div>
-		);
-	}
+    return (
+      <div>
+        <h1>Blog</h1>
+        { user ? (
+          <div className={styles.btnContainer}>
+            <NavLink to="blog/new" role="btn-sm">NEW POST</NavLink>
+          </div>
+        ) : null
+        }
+        <ul className={styles.list}>
+          {this.props.posts.map((post) => (
+            <li key={post.id}>
+              <NavLink to={`/blog/${post.id}`}>
+                <span className={styles.title}>{post.title}</span>
+                <span className={styles.created}>{moment(post.created).format(FORMAT) }</span>
+              </NavLink>
+            </li>
+          )) }
+        </ul>
+      </div>
+    );
+  }
+
 }
 
 BlogList.contextTypes = {
-	user: React.PropTypes.object
+  user: React.PropTypes.object
 };
