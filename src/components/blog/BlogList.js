@@ -11,7 +11,7 @@ export default class BlogList extends React.Component {
 
     return (
       <div>
-        <h1>Blog</h1>
+        <h1 className={styles.title}>Blog</h1>
         { user ? (
           <div className={styles.btnContainer}>
             <NavLink to="blog/new" role="btn-sm">NEW POST</NavLink>

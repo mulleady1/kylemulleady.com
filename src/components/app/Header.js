@@ -6,34 +6,34 @@ import styles from './Header.scss';
 
 export class Header extends React.Component {
 
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.onLogoutClick = this.onLogoutClick.bind(this);
-	}
+    this.onLogoutClick = this.onLogoutClick.bind(this);
+  }
 
-	render() {
-		const { user } = this.props;
+  render() {
+    const { user } = this.props;
 
-		return (
-			<div className={styles.nav}>
-				<NavLink to="/">Kyle Mulleady</NavLink>
-				<ul>
-					<li><NavLink to="/blog">Blog</NavLink></li>
-					{ user ? (
-						<li><button onClick={this.onLogoutClick}>Logout {user.username}</button></li>
-					) : (
-						<li><NavLink to="/login">Login</NavLink></li>
-					)
-					}
-				</ul>
-			</div>
-		);
-	}
+    return (
+      <div className={styles.nav}>
+        <NavLink to="/">Kyle Mulleady</NavLink>
+        <ul>
+          <li><NavLink to="/blog">Blog</NavLink></li>
+          { user ? (
+            <li><button onClick={this.onLogoutClick}>Logout {user.username}</button></li>
+          ) : (
+            <li><NavLink to="/login">Login</NavLink></li>
+          )
+          }
+        </ul>
+      </div>
+    );
+  }
 
-	onLogoutClick() {
-		AppActions.logout();
-	}
+  onLogoutClick() {
+    AppActions.logout();
+  }
 
 }
 

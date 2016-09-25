@@ -54,7 +54,7 @@ namespace KM.Controllers
 			var user = _db.Users.FirstOrDefault(u => u.UserName == model.Username || u.Email == model.Username);
 
 			var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
-
+            
 			if (!result.Succeeded)
 			{
 				return BadRequest("Invalid credentials");

@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 import moment from 'moment';
 import marked from 'marked';
 import NavLink from '../shared/NavLink';
@@ -30,25 +29,26 @@ export default class BlogDetail extends React.Component {
         }
         <div className={styles.summary}>
           <h1>
+            <span><NavLink to="/blog">‹</NavLink></span>
             {post.title}
           </h1>
-          <h3>
-            {post.subtitle}
-          </h3>
-          <div>
-            <span>Posted by <b>{post.author || 'Kyle'}</b></span>
-            <span> on <b>{moment(post.created).format(FORMAT) }</b></span>
-          </div>
+            <h3>
+              {post.subtitle}
+            </h3>
+            <div>
+              <span>Posted by <b>{post.author || 'Kyle'}</b></span>
+              <span> on <b>{moment(post.created).format(FORMAT) }</b></span>
+            </div>
         </div>
-        <p 
-          className={styles.body}
-          dangerouslySetInnerHTML={{ __html: marked(post.body) }}>
-        </p>
-      </div>
-    );
-  }
-}
+          <p
+            className={styles.body}
+            dangerouslySetInnerHTML={{ __html: marked(post.body) }}>
+          </p>
+        </div>
+        );
+        }
+        }
 
-BlogDetail.contextTypes = {
-  user: React.PropTypes.object
-};
+        BlogDetail.contextTypes = {
+          user: React.PropTypes.object
+        };

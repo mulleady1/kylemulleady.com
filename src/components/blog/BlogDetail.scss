@@ -1,5 +1,13 @@
 .summary {
   color: #bbb;
+  h1 span {
+    padding: 0 15px;
+    font-weight: bold;
+    & a:hover {
+      text-decoration: none;
+      color: #ddd;
+    }
+  }
   div {
     color: #777;
     margin: 35px 0;
