@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} &middot; {{ site.title }}{% endblock %}
+{% block description %}{{ post.excerpt }}{% endblock %}
+{% block content %}
+<article>
+  <header class="post-head">
+    <h1>{{ post.title }}</h1>
+    <time datetime="{{ post.date }}">{{ post.date | longdate }}</time>
+  </header>
+  <div class="prose">
+    {{ post.html | safe }}
+  </div>
+</article>
+<p class="more"><a href="/blog/">&larr; All posts</a></p>
+{% endblock %}
