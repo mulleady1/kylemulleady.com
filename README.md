@@ -25,6 +25,12 @@ Posts are sorted by `date`, newest first. The three most recent appear on the
 homepage. `legacy_id` on the older posts records their ID on the 2016 site, which
 nginx uses to redirect the old `/blog/<id>` URLs.
 
+## Unpublishing a post
+
+Move it from `content/posts/` to `content/drafts/`. The build ignores drafts, and
+if the post carries a `legacy_id` the generated nginx config redirects that old
+URL to the blog index instead of leaving it to 404. Move it back to republish.
+
 ## Deploy
 
     make deploy
