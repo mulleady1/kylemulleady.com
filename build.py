@@ -50,7 +50,12 @@ def parse_post(path: Path) -> dict:
         if not line.strip():
             continue
         key, _, value = line.partition(":")
-        meta[key.strip()] = value.strip().strip('"')
+        value = value.strip()
+        # Accept 'single', "double" or unquoted values. Only a matched pair is stripped,
+        # so an apostrophe inside an unquoted title survives.
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+            value = value[1:-1]
+        meta[key.strip()] = value
 
     md = markdown.Markdown(
         extensions=["fenced_code", "codehilite", "tables", "attr_list", "smarty"],
