@@ -122,7 +122,7 @@ def write_nginx_conf(posts: list[dict]) -> None:
 server {{
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name kylemulleady.com www.kylemulleady.com;
+    server_name kylemulleady.com;
 
     root {SERVER_ROOT};
     index index.html;
@@ -151,8 +151,11 @@ server {{
     location = /contact {{ return 301 /; }}
     location /api       {{ return 410; }}
 
-    location /css    {{ expires 7d; add_header Cache-Control "public"; }}
-    location /images {{ expires 30d; add_header Cache-Control "public"; }}
+    # `expires` alone, deliberately. An add_header here would replace the block-level
+    # add_header set above rather than adding to it, quietly dropping the CSP and
+    # nosniff headers from every stylesheet and image.
+    location /css    {{ expires 7d; }}
+    location /images {{ expires 30d; }}
 
     location / {{
         try_files $uri $uri/ $uri.html =404;
